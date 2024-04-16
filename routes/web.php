@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\HomeController;
+use App\Http\Controllers\Admin\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,4 +26,5 @@ Auth::routes();
 Route::group(['middleware' => 'auth:web', 'prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::resource('categories', CategoryController::class);
+    Route::resource('products', ProductController::class);
 });
