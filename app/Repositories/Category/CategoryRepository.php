@@ -20,4 +20,9 @@ class CategoryRepository extends BaseRepository
     {
         return $this->model->whereNull('parent_id')->with('children')->get();
     }
+
+    function getFeatured()
+    {
+        return $this->model->where(['is_featured' => 1])->get();
+    }
 }
