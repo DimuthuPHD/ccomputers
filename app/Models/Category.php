@@ -11,7 +11,7 @@ class Category extends Model
 {
     use HasFactory , HasSlug;
 
-    protected $fillable = ['name', 'parent_id'];
+    protected $fillable = ['name', 'parent_id', 'is_featured'];
 
     /**
      * Get the options for generating the slug.

@@ -23,7 +23,8 @@ class UpdateCategoryRequest extends FormRequest
     {
         return [
             'name' => 'required|unique:categories,name,' . $this->category->id . ',id',
-            'parent_id' => 'nullable|exists:categories,id'
+            'parent_id' => 'nullable|exists:categories,id',
+            'is_featured' => 'nullable'
         ];
     }
 }
