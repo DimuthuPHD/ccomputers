@@ -41,6 +41,7 @@ class CategoryController extends Controller
     {
         try {
             $data = $request->validated();
+            $data['is_featured'] = isset($data['is_featured']);
             $this->categoryRepository->create($data);
             return to_route('admin.categories.index')->with(['success' => 'Category created successfully ! ']);
         } catch (\Throwable $th) {
@@ -76,6 +77,7 @@ class CategoryController extends Controller
 
         try {
             $data = $request->validated();
+            $data['is_featured'] = isset($data['is_featured']);
             $category->update($data);
             return to_route('admin.categories.index')->with(['success' => 'Category updated successfully ! ']);
         } catch (\Throwable $th) {
