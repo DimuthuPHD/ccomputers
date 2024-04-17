@@ -30,18 +30,18 @@
             <p class="price">
                 LKR {{number_format($product->price, 2)}}
             </p>
-            <div class="rating">
+            {{-- <div class="rating">
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star-o"></i>
                 <i class="fa fa-star-o"></i>
-            </div>
+            </div> --}}
             <div class="product_btn_wrapper">
-                <a href="#" class="product_btn add_wishlist"
+                {{-- <a href="#" class="product_btn add_wishlist"
                     title="Add to Wishlist">
                     <i class="fa fa-heart"></i>
-                </a>
+                </a> --}}
                 <button class="btn" type="button">
                     Add to Cart
                 </button>

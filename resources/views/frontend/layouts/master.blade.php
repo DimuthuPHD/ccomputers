@@ -29,14 +29,6 @@
 <body>
 
     <a href="javascript:" id="return-to-top"><i class="fa fa-angle-up"></i></a>
-
-    <!-- Preloader -->
-    <div id="preloader">
-        <div id="status">
-            <div class="status-mes"></div>
-        </div>
-    </div>
-
     <!-- header start -->
     <div class="header">
         <div class="header_top">
