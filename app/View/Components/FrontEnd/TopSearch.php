@@ -3,14 +3,12 @@
 namespace App\View\Components\FrontEnd;
 
 use App\Repositories\Category\CategoryRepository;
-use App\Repositories\Product\ProductRepository;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class TopNav extends Component
+class TopSearch extends Component
 {
-
     public $categoryRepository;
 
     /**
@@ -27,7 +25,7 @@ class TopNav extends Component
      */
     public function render(): View|Closure|string
     {
-        $categories = $this->categoryRepository->getFeatured();
-        return view('components.front-end.top-nav', ['categories' => $categories]);
+        $categories = $this->categoryRepository->getParents();
+        return view('components.front-end.top-search', ['categories' => $categories]);
     }
 }

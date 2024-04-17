@@ -23,6 +23,7 @@ class HomeController extends Controller
     public function index()  {
 
         $categories = $this->categoryRepository->getParents();
-        return view('frontend.home.index', ['categories' => $categories]);
+        $parentFeatureCats = $this->categoryRepository->getParentFeatured();
+        return view('frontend.home.index', ['categories' => $categories, 'parent_feature_cats' => $parentFeatureCats]);
     }
 }

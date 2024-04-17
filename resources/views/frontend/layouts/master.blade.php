@@ -181,22 +181,7 @@
                         </div>
                     </div>
                     <div class="col-md-6 col-sm-8 hidden-xs">
-                        <div class="header_search_wrapper">
-                            <input type="text" placeholder="Search here">
-                            <select>
-                                <option value="0" selected="selected">All Categories</option>
-                                <option value="1">Computers &amp; Accessories</option>
-                                <option value="2">Cameras</option>
-                                <option value="3">Mobiles &amp; Tablets</option>
-                                <option value="3">TV Audio &amp; Video</option>
-                                <option value="3">Watches &amp; Tablets</option>
-                                <option value="3">Music &amp; Video Games</option>
-                                <option value="3"> Car Accessories</option>
-                            </select>
-                            <button>
-                                <i class="fa fa-search" aria-hidden="true"></i>
-                            </button>
-                        </div>
+                        <x-front-end.top-search></x-front-end.top-search>
                         <div class="logo_wrapper visible-xs">
                             <a href="{{url('/')}}"><img src="{{asset('images/logo_white.png')}}" alt="logo_img" /></a>
                         </div>
