@@ -27,9 +27,7 @@ class StoreController extends Controller
         }
 
 
-        // dd($request->all());
-
-        $products = $this->productRepository->filter($request->all());
+        $products = $this->productRepository->filter(array_filter($request->all()));
         return view('frontend.store.index', ['products' =>$products, 'categories' => $this->categoryRepository->getParents()]);
     }
 }

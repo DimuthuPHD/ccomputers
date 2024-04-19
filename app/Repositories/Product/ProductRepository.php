@@ -27,6 +27,9 @@ class ProductRepository extends BaseRepository {
             $maxPrice = (int) preg_replace('/[^0-9]/', '', $price[1]);
             $q->whereBetween('price', [$minPrice, $maxPrice]);
         })
+        ->when(isset($filters['search']), function ($q) use ($filters) {
+            $q->where('name', 'like' , "%{$filters['search']}%");
+        })
 
         ->paginate(10);
 
