@@ -46,4 +46,5 @@ Route::group(['middleware' => 'auth:web', 'prefix' => 'admin', 'as' => 'admin.']
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::resource('categories', CategoryController::class);
     Route::resource('products', ProductController::class);
+    Route::get('products/{product}/media/{media}/delete', [ProductController::class, 'removeMedia'])->name('products.delete.images');
 });
