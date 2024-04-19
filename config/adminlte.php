@@ -299,6 +299,11 @@ return [
             'text' => 'Categories',
             'url' => 'admin/categories',
             'icon' => 'fas fa-fw fa-book',
+        ],
+        [
+            'text' => 'products',
+            'url' => 'admin/products',
+            'icon' => 'fas fa-fw fa-book',
         ]
     ],
 
