@@ -2,7 +2,7 @@
 
 Project:	A Future HTML UI Kit
 Version:	1.0.0
-Author: 	webstrot 
+Author: 	webstrot
 
 ------------------------------------------------------------------ */
 
@@ -192,6 +192,14 @@ body {
     color: #4285f4;
     font-size: 22px;
     font-weight: 800;
+}
+
+.accordion_wrapper .panel .panel-heading.no-toggle a:after {
+    content: "";
+}
+
+.accordion_wrapper .panel .panel-heading.no-toggle a {
+    color: #222;
 }
 
 .accordion_wrapper .panel .panel-heading a.collapsed:after {
@@ -483,8 +491,8 @@ body {
     transition: all 0.3s ease 0.2s;
 }
 
-.filter-area .list-grid ul li>.active>a, 
-.filter-area .list-grid ul li>.active>a:focus, 
+.filter-area .list-grid ul li>.active>a,
+.filter-area .list-grid ul li>.active>a:focus,
 .filter-area .list-grid ul li>.active>a:hover{
 	 background: #4385f5;
     color: #fff;
@@ -640,7 +648,7 @@ body {
     position: absolute;
     bottom: -40px;
     width: 100%;
-    height: 60px;
+    height: 70px;
     text-align: center;
     -webkit-transition: all 0.5s;
     -o-transition: all 0.7s;
@@ -671,9 +679,9 @@ body {
 
 .cc_li_img_text li a {
     float: left;
-    width: 86px;
-    height: 50px;
-    font-size: 20px;
+    width: 33px;
+  height: 69px;
+  font-size: 23px;
     line-height: 50px;
     background: #ffffff;
     text-align: center;
@@ -1029,6 +1037,17 @@ body {
     border-radius: 5px;
 }
 .shop_pagination_section ul li a:hover {
+    background: #4285f4;
+    color: #fff;
+    border: 1px solid #4285f4;
+    -webkit-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    -ms-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    transition: all 0.5s;
+}
+
+.shop_pagination_section ul li a.active_pagination {
     background: #4285f4;
     color: #fff;
     border: 1px solid #4285f4;

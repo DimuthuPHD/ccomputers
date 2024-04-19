@@ -2,33 +2,33 @@
 
     var revapi24;
     var tpj = jQuery;
-	
-	
+
+
  // on ready function
     $(document).ready(function() {
 		"use strict";
-		
+
 	// range js //
-   
+
 	$( "#range-price" ).slider({
 		range: true,
 		min: 0,
-		max: 1200,
+		max: 1000000,
 		values: [ 100, 875 ],
 		slide: function( event, ui ) {
-	$( "#price" ).val("$" + ui.values[ 0 ] + " - " +  " $" + ui.values[ 1 ]  );
+	$( "#price" ).val("LKR" + ui.values[ 0 ] + " - " +  " LKR" + ui.values[ 1 ]  );
 	}
 	});
 
-	$( "#price" ).val( "$" + $( "#range-price" ).slider( "values", 0 ) +
-	" - " + " $" + $( "#range-price" ).slider( "values", 1 )); 
+	$( "#price" ).val( "LKR" + $( "#range-price" ).slider( "values", 0 ) +
+	" - " + " LKR" + $( "#range-price" ).slider( "values", 1 ));
 
 	// responsive range js //
-   
+
 	$( "#responsive_range_price" ).slider({
 		range: true,
 		min: 0,
-		max: 1200,
+		max: 1000000,
 		values: [ 100, 875 ],
 		slide: function( event, ui ) {
 	$( "#responsive_price" ).val("$" + ui.values[ 0 ] + " - " +  " $" + ui.values[ 1 ]  );
@@ -36,17 +36,17 @@
 	});
 
 	$( "#responsive_price" ).val( "$" + $( "#responsive_range_price" ).slider( "values", 0 ) +
-	" - " + " $" + $( "#responsive_range_price" ).slider( "values", 1 )); 
-	
+	" - " + " $" + $( "#responsive_range_price" ).slider( "values", 1 ));
+
 	//* sliders *//
-	
+
 	 $(document).ready(function() {
             $('.cc_ps_top_slider_section .owl-carousel').owlCarousel({
                 loop: true,
                 margin: 10,
                 autoplay: false,
                 responsiveClass: true,
-                smartSpeed: 1200,
+                smartSpeed: 1000000,
                 navText: ['<i class="fa fa-angle-double-left" aria-hidden="true"></i>', '<i class="fa fa-angle-double-right" aria-hidden="true"></i>'],
                 responsive: {
                     0: {
@@ -66,7 +66,7 @@
                 }
             })
         })
-		
+
 		$(document).ready(function() {
               $('.cc_li_slider_wrapper .owl-carousel').owlCarousel({
                 loop: true,
@@ -92,7 +92,7 @@
                 }
               })
             })
-			
+
 			$(document).ready(function() {
               $('.cc_li_slider_wrapper_2 .owl-carousel').owlCarousel({
                 loop: true,
@@ -118,7 +118,7 @@
                 }
               })
             })
-			
+
 			$(document).ready(function() {
               $('.organic_related_prod_slider .owl-carousel').owlCarousel({
                 loop: true,
@@ -144,7 +144,7 @@
                 }
               })
             })
-			
+
 			$(document).ready(function() {
               $('.elect_related_prod_slider .owl-carousel').owlCarousel({
                 loop: true,
@@ -170,7 +170,7 @@
                 }
               })
             })
-			
+
 			$(document).ready(function() {
               $('.sport_related_prod_slider .owl-carousel').owlCarousel({
                 loop: true,
@@ -196,7 +196,7 @@
                 }
               })
             })
-			
+
 			$(document).ready(function() {
              $('.header_product_slider .owl-carousel').owlCarousel({
                 loop: true,
@@ -222,7 +222,7 @@
                 }
               })
             })
-			
+
 			$(document).ready(function() {
              $('.sidebar_product_slider .owl-carousel').owlCarousel({
                 loop: true,
@@ -248,7 +248,7 @@
                 }
               })
             })
-			
+
 			$(document).ready(function() {
               $('.featured_products_slider .owl-carousel').owlCarousel({
                 loop: true,
@@ -274,9 +274,9 @@
                 }
               })
             })
-			
+
 		/* sidebar_testimonial_slider */
-		
+
 		$(document).ready(function() {
 				 $('.sidebar_testimonial_slider .owl-carousel').owlCarousel({
 					loop: true,
@@ -302,9 +302,9 @@
 					}
 				  })
 				})
-			
+
 		/* product_main_slider_wrapper */
-	
+
 		$(document).ready(function() {
              $('.product_main_slider_wrapper .owl-carousel').owlCarousel({
                 loop: true,
@@ -330,9 +330,9 @@
                 }
               })
             })
-			
+
 		/* product_slider_wrapper */
-	
+
 		$(document).ready(function() {
              $('.product_slider_wrapper .owl-carousel').owlCarousel({
                 loop: true,
@@ -358,9 +358,9 @@
                 }
               })
             })
-		
+
 		/* sport_slider_wrapper */
-	
+
 		$(document).ready(function() {
              $('.sport_img_slider .owl-carousel').owlCarousel({
                 loop: true,
@@ -386,9 +386,9 @@
                 }
               })
             })
-			
+
 		/* sport_slider_wrapper */
-	
+
 		$(document).ready(function() {
              $('.sport_slider_wrapper .owl-carousel').owlCarousel({
                 loop: true,
@@ -414,7 +414,7 @@
                 }
               })
             })
-		
+
 	/*--- MAIN SLIDER JS ----*/
 
 	$(document).ready(function (){
@@ -425,11 +425,11 @@
 			autoplay:false,
 			navText : ['<i class="fa fa-angle-left" aria-hidden="true"></i>','<i class="fa fa-angle-right" aria-hidden="true"></i>'],
 			items:1
-					  
+
 	});
 	function setAnimation ( _elem, _InOut ) {
 		var animationEndEvent = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
-		
+
 			_elem.each ( function () {
 				var $elem = $(this);
 				var $animationType = 'animated ' + $elem.data( 'animation-' + _InOut );
@@ -439,7 +439,7 @@
 				});
 			});
 		}
-		
+
 		owl.on('change.owl.carousel', function(event) {
 			var $currentItem = $('.owl-item', owl).eq(event.item.index);
 			var $elemsToanim = $currentItem.find("[data-animation-out]");
@@ -453,16 +453,16 @@
 		})
 
 	});
-	
+
 	/*--- SPORT SHOP MAIN SLIDER JS ----*/
-	
+
 	(function( $ ) {
 
-	//Function to animate slider captions 
+	//Function to animate slider captions
 	function doAnimations( elems ) {
 		//Cache the animationend event in a variable
 		var animEndEv = 'webkitAnimationEnd animationend';
-		
+
 		elems.each(function () {
 			var $this = $(this),
 				$animationType = $this.data('animation');
@@ -471,31 +471,31 @@
 			});
 		});
 	}
-	
-	//Variables on page load 
+
+	//Variables on page load
 	var $myCarousel = $('#carousel-example-generic'),
 		$firstAnimatingElems = $myCarousel.find('.item:first').find("[data-animation ^= 'animated']");
-		
-	//Initialize carousel 
+
+	//Initialize carousel
 	$myCarousel.carousel();
-	
-	//Animate captions in first slide on page load 
+
+	//Animate captions in first slide on page load
 	doAnimations($firstAnimatingElems);
-	
-	//Pause carousel  
+
+	//Pause carousel
 	$myCarousel.carousel('pause');
-	
-	
-	//Other slides to be animated on carousel slide event 
+
+
+	//Other slides to be animated on carousel slide event
 	$myCarousel.on('slide.bs.carousel', function (e) {
 		var $animatingElems = $(e.relatedTarget).find("[data-animation ^= 'animated']");
 		doAnimations($animatingElems);
-	});  
+	});
 
 	})(jQuery);
-	
+
 	//SPORT SHOP VIDEO PLAY
-	
+
 	$('.play-trigger').magnificPopup({
         type: 'iframe'
       });

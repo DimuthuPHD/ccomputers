@@ -15,7 +15,7 @@
                                         <li>
                                             <div class="shop_sidebar_title">
                                                 <i class="{{ $category->icon }}"></i>
-                                                <a class="title" href="#">
+                                                <a class="title" href="{{route('fr.store', ['cat' => $category->slug])}}">
                                                     {{ $category->name }}
                                                     <span>
                                                         <i class="fa fa-angle-right"></i>
@@ -29,14 +29,14 @@
                                                             @foreach ($category->children as $subcategory)
                                                                 <div class="col-md-6">
                                                                     <div class="menu_title">
-                                                                        <a href="#">
+                                                                        <a href="{{route('fr.store', ['cat' => $subcategory->slug])}}">
                                                                             {{ $subcategory->name }}
                                                                         </a>
                                                                     </div>
                                                                     <ul>
                                                                         @foreach ($subcategory->children as $subsubcategory)
                                                                             <li>
-                                                                                <a href="#">
+                                                                                <a href="{{route('fr.store', ['cat' => $subcategory->slug])}}">
                                                                                     {{ $subsubcategory->name }}
                                                                                 </a>
                                                                             </li>

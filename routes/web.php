@@ -7,6 +7,7 @@ use App\Http\Controllers\FrontEnd\Auth\LoginController;
 use App\Http\Controllers\FrontEnd\Auth\RegisterController;
 use App\Http\Controllers\FrontEnd\CustomerController;
 use App\Http\Controllers\FrontEnd\HomeController as FrontEndHomeController;
+use App\Http\Controllers\FrontEnd\StoreController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,6 +28,9 @@ Route::group(['as' => 'fr.'], function () {
     Route::post('/customer/login', [LoginController::class, 'login'])->name('customer.login');
     Route::get('/customer/register', [RegisterController::class, 'showRegistrationForm'])->name('customer.register');
     Route::post('/customer/register', [RegisterController::class, 'register'])->name('customer.register.submit');
+
+    Route::get('store', [StoreController::class, 'index'])->name('store');
+
 
 
     Route::group(['middleware' => 'auth:customer', 'prefix' => 'customer', 'as' => 'customer.'], function () {

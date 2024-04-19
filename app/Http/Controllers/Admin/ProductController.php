@@ -82,6 +82,7 @@ class ProductController extends Controller
             $product->categories()->sync($categoryIds);
             return to_route('admin.products.index')->with(['success' => 'Product updated successfully ! ']);
         } catch (\Throwable $th) {
+            dd($th);
             logger()->log('error', $th);
             return back()->with(['error' => 'Product updating faild.  please try again!']);
         }
