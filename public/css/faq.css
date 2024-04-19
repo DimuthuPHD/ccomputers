@@ -2,11 +2,11 @@
 
 Project:	A Future HTML UI Kit
 Version:	1.0.0
-Author: 	webstrot 
+Author: 	webstrot
 
 ------------------------------------------------------------------
 [Table of contents]
- 
+
 1. contact_wrapper start
 2. usefull_link_wrapper start
 3. faq_content_wrapper start
@@ -68,9 +68,9 @@ Author: 	webstrot
 }
 .form_wrapper .form-control:focus{
 	border: 1px solid #fff !important;
-	background: transparent;	
+	background: transparent;
 }
-.form_wrapper .form-control {	
+.form_wrapper .form-control {
 	border: 1px solid rgba(255, 255, 255, 0.56);
 	background: transparent;
 	color: #fff;
@@ -113,10 +113,10 @@ Author: 	webstrot
     width: 100%;
 }
 .usefull_link_wrapper h2 {
-    font-size: 16px;
+    /* font-size: 16px; */
     font-weight: 700;
     margin-bottom: 40px;
-    color: #111;
+    /* color: #111; */
     text-transform: uppercase;
 }
 .usefull_link_wrapper h2:after {
@@ -249,10 +249,10 @@ Author: 	webstrot
 
 
 @media(max-width: 767px){
-	
+
 .faq_content_heading h2 {
     font-size: 30px;
-}	
+}
 .faq_content_wrapper {
     padding-top: 40px;
 }

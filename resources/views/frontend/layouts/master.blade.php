@@ -24,6 +24,8 @@
     <link href="{{asset('css/flaticon.css')}}" rel="stylesheet">
     <!-- Style CSS -->
     <link href="{{asset('css/shop_electranics.css')}}" rel="stylesheet">
+
+    @stack('styles')
 </head>
 
 <body>
@@ -38,25 +40,16 @@
                 <div id="right_top_links" class="pull-right">
                     <ul class="list-inline visible-xs">
                         <li class="dropdown">
-                            <a href="#" title="My Account" class="dropdown-toggle res_list_link" data-toggle="dropdown">
-                                <i class="fa fa-user"></i>
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-right">
-                                <li>
-                                    <a href="#">
-                                        <span>Register</span>
-                                        <span>
-											<i class="fa fa-unlock-alt"></i>
-										</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="login.html">
-                                        <span>Login</span>
-                                        <span><i class="fa fa-user"></i></span>
-                                    </a>
-                                </li>
-                            </ul>
+
+                                @if (auth()->user('customer') !== null)
+                                <a href="{{route('fr.customer.dashboard')}}" title="My Account" class="res_list_link" >
+                                    <i class="fa fa-user"></i>
+                                </a>
+                                @else
+                                <a href="{{route('fr.customer.dashboard')}}" title="My Account" class="dropdown-toggle res_list_link" data-toggle="dropdown">
+                                    <i class="fa fa-user"></i>
+                                </a>
+                                @endif
                         </li>
                         <li class="dropdown">
                             <a href="#" title="My Account" class="dropdown-toggle res_list_link" data-toggle="dropdown">
@@ -128,14 +121,32 @@
 								</span>
                             </a>
                         </li>
-                        <li class="dropdown">
-                            <a href="#" title="My Account" class="dropdown-toggle" data-toggle="dropdown">
+                        <li>
+
+                            @if (auth()->user('customer') !== null)
+                            <a href="{{route('fr.customer.dashboard')}}" title="My Account">
                                 <span>
 									<i class="fa fa-user"></i>
 									My Account
 								</span>
-                                <i class="fa fa-angle-down"></i>
                             </a>
+                            @else
+                            <a href="{{route('fr.customer.login')}}" title="Login">
+                                <span>
+									<i class="fa fa-user"></i>
+									Login
+								</span>
+                            </a>
+                            <a href="{{route('fr.customer.register')}}" title="Register">
+                                <span>
+									<i class="fa fa-user-plus"></i>
+									Register
+								</span>
+                            </a>
+                            @endif
+
+
+
                             <ul class="dropdown-menu dropdown-menu-right">
                                 <li>
                                     <a href="#">
