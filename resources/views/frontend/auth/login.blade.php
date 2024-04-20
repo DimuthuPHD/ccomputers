@@ -63,6 +63,9 @@
                                         Forgot Password
                                     </a>
                                 </div>
+                                @if (request()->get('redirect_back'))
+                                    <input type="hidden" name="redirect_back" value="{{request()->get('redirect_back')}}">
+                                @endif
                                 <div class="login_btn_wrapper">
                                     <button class="btn btn-primary login_btn" type="submit">Login</button>
                                 </div>

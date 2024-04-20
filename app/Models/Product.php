@@ -32,4 +32,14 @@ class Product extends Model implements HasMedia
         return $this->belongsToMany(Category::class);
     }
 
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
 }

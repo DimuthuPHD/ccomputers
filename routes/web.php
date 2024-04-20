@@ -30,6 +30,8 @@ Route::group(['as' => 'fr.'], function () {
     Route::post('/customer/register', [RegisterController::class, 'register'])->name('customer.register.submit');
 
     Route::get('store', [StoreController::class, 'index'])->name('store');
+    Route::get('store/product/{product}', [StoreController::class, 'show'])->name('store.product');
+
 
 
 

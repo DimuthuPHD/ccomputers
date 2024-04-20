@@ -16,7 +16,7 @@
         </div>
 
         <div class="btc_shop_indx_img_cont_wrapper">
-            <h1><a href="#">{{$product->name}}</a></h1>
+            <h1><a href="{{route('fr.store.product', $product->slug)}}">{{$product->name}}</a></h1>
             <h5>LKR {{number_format($product->price, 2)}}</h5>
         </div>
     </div>

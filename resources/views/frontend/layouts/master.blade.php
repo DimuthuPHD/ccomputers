@@ -9,14 +9,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title', config('app.name'))</title>
     <!-- Place favicon.ico in the root directory -->
-    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{asset('images/favicon.png')}}">
     <!-- font-awesome -->
     <link href="{{asset('css/font-awesome.min.css')}}" rel="stylesheet">
     <link href="{{asset('css/fonts.css')}}" rel="stylesheet">
     <!-- Bootstrap -->
     <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
-    <link rel="stylesheet" href="{{asset('css/o')}}wl.carousel.css" />
-    <link rel="stylesheet" href="{{asset('css/owl.th')}}eme.default.css" />
+    <link rel="stylesheet" href="{{asset('css/owl.carousel.css')}}" />
+    <link rel="stylesheet" href="{{asset('css/owl.theme.default.css')}}" />
     <!-- Animation Css -->
     <link href="{{asset('css/animate.css')}}" rel="stylesheet">
     <link href="{{asset('css/jquery-ui.min.css')}}" rel="stylesheet">
@@ -41,12 +41,12 @@
                     <ul class="list-inline visible-xs">
                         <li class="dropdown">
 
-                                @if (auth()->user('customer') !== null)
+                                @if (auth('customer')->user())
                                 <a href="{{route('fr.customer.dashboard')}}" title="My Account" class="res_list_link" >
                                     <i class="fa fa-user"></i>
                                 </a>
                                 @else
-                                <a href="{{route('fr.customer.dashboard')}}" title="My Account" class="dropdown-toggle res_list_link" data-toggle="dropdown">
+                                <a href="{{route('fr.customer.login')}}" title="My Account" class="dropdown-toggle res_list_link" data-toggle="dropdown">
                                     <i class="fa fa-user"></i>
                                 </a>
                                 @endif
@@ -123,7 +123,7 @@
                         </li>
                         <li>
 
-                            @if (auth()->user('customer') !== null)
+                            @if (auth('customer')->user())
                             <a href="{{route('fr.customer.dashboard')}}" title="My Account">
                                 <span>
 									<i class="fa fa-user"></i>
@@ -751,8 +751,6 @@
             }, 'slow');
         }
     </script>
+    @stack('scripts')
 </body>
-
-
-<!-- Mirrored from afuture.webstrot.com/homepage7_electronic.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 03 Mar 2024 16:31:38 GMT -->
 </html>
