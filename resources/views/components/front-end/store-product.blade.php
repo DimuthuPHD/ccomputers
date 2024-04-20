@@ -6,13 +6,6 @@
             @else
                 <img src="images/default_product_image.jpg" alt="default_img" class="img-responsive" />
             @endif
-            <div class="cc_li_img_overlay">
-                <div class="cc_li_img_text">
-                    <ul>
-                        <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                    </ul>
-                </div>
-            </div>
         </div>
 
         <div class="btc_shop_indx_img_cont_wrapper">

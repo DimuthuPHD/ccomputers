@@ -40,6 +40,7 @@ class CheckoutController extends Controller
 
         $logged_in_user = auth('customer')->user();
         $order_items = [];
+        $stock_data = [];
         $cart_data = getCart()->getContent();
 
         $order_data = [
@@ -88,18 +89,32 @@ class CheckoutController extends Controller
                 $order_items[$key]['product_id'] = $product->id;
                 $order_items[$key]['product_price'] = $product->price;
                 $order_items[$key]['quantity'] = $product->quantity;
+
+                $stock_data[$product->id] = $product->quantity;
             }
+
+            $this->updateStocks($stock_data);
+
+            foreach ($order_items as $key => $item) {
+                $order->items()->create($item);
+            }
+
+            Mail::to($primary_addr['email'])->send(new OrderConfirmation($order, $cart_data));
+
+            getCart()->clear();
+
+            return redirect()->route('fr.home')->with('success', 'Order placed successfully');
         }
 
-        foreach ($order_items as $key => $item) {
-            $order->items()->create($item);
+        abort(404);
+
+    }
+
+    private function updateStocks($stock_data = []){
+
+        foreach ($stock_data as $id => $stock) {
+            $this->productRepository->updateById($id, ['stock' => $stock]);
         }
-
-        Mail::to($primary_addr['email'])->send(new OrderConfirmation($order, $cart_data));
-
-        getCart()->clear();
-
-        return redirect()->route('fr.home')->with('success', 'Order placed successfully');
 
     }
 }

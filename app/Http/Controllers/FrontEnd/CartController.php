@@ -32,12 +32,17 @@ class CartController extends Controller
         }
 
         $product = $this->productRepository->getById($request->product_id);
+        $req_quantity = $request->get('quantity', 1);
+
+        if ($product->stock < $req_quantity) {
+            return redirect()->back()->with('success', 'No enough stock available');
+        }
 
         $cart_data = [
             'id' => $product->id,
             'name' => $product->name,
             'price' => $product->price,
-            'quantity' => $request->get('quantity', '1'),
+            'quantity' => $req_quantity,
             'attributes' => [],
             'associatedModel' => $product
         ];

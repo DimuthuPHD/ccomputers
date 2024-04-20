@@ -35,9 +35,7 @@
             </p>
             {{-- Add other product details and buttons here --}}
             <div class="product_btn_wrapper">
-                <button class="btn" type="button">
-                    Add to Cart
-                </button>
+                <a href="{{route('fr.store.product', $product->slug)}}" class="btn">Read more</a>
             </div>
         </div>
     </div>
