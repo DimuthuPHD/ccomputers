@@ -3,8 +3,10 @@
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\FfrontEnd\CheckoutController;
 use App\Http\Controllers\FrontEnd\Auth\LoginController;
 use App\Http\Controllers\FrontEnd\Auth\RegisterController;
+use App\Http\Controllers\FrontEnd\CartController;
 use App\Http\Controllers\FrontEnd\CustomerController;
 use App\Http\Controllers\FrontEnd\HomeController as FrontEndHomeController;
 use App\Http\Controllers\FrontEnd\StoreController;
@@ -32,6 +34,11 @@ Route::group(['as' => 'fr.'], function () {
     Route::get('store', [StoreController::class, 'index'])->name('store');
     Route::get('store/product/{product}', [StoreController::class, 'show'])->name('store.product');
 
+    Route::post('cart/add', [CartController::class, 'add'])->name('cart.add');
+    Route::get('cart', [CartController::class, 'index'])->name('cart.index');
+    Route::get('cart/{product}/delete', [CartController::class, 'remove'])->name('cart.remove');
+    Route::get('checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+    Route::post('checkout/submit', [CheckoutController::class, 'submit'])->name('checkout.submit');
 
 
 

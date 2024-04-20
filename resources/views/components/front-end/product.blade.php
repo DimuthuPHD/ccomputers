@@ -26,7 +26,7 @@
         </div>
         <div class="btc_shop_indx_img_cont_wrapper">
             <div class="name">
-                <a href="#">
+                <a href="{{route('fr.store.product', $product->slug)}}">
                     {{$product->name}}
                 </a>
             </div>

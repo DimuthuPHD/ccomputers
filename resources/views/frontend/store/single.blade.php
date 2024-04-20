@@ -6,7 +6,6 @@
         <link href="{{ asset('css/slick.css') }}" rel="stylesheet">
         <link href="{{ asset('css/slick-theme.css') }}" rel="stylesheet">
     @endpush
-
     <!-- page_header start -->
     <div class="page_header">
         <div class="container">
@@ -104,7 +103,7 @@
                                             </div>
                                         @endforeach
                                     </div>
-                                    <div class="slider-nav hidden-xs">
+                                    <div class="slider-nav hidden-xs product-draggable">
 
                                         @foreach ($product->getMedia('product-images') as $key => $image)
                                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
@@ -138,32 +137,32 @@
                                     <div class="cc_ps_cart_btn_wrapper">
                                         <div class="cc_ps_cart_btn">
                                             <span>Quantity</span>
-                                            <ul>
-                                                <li>
-                                                    <div class="cc_ps_quantily_info">
-                                                        <div class="select_number">
-                                                            <button onclick="changeQty(1); return false;" title="increase"
-                                                                class="increase">
-                                                                <i class="fa fa-angle-up"></i>
-                                                            </button>
-                                                            <input type="text" name="quantity" value="1"
-                                                                size="2" id="input-quantity" class="form-control">
-                                                            <button onclick="changeQty(0); return  false;" title="decrease"
-                                                                class="decrease">
-                                                                <i class="fa fa-angle-down"></i>
-                                                            </button>
+                                            <form action="{{route('fr.cart.add')}}" method="post">
+                                                @csrf
+                                                <ul>
+                                                    <li>
+                                                        <div class="cc_ps_quantily_info">
+                                                            <div class="select_number">
+                                                                <button onclick="changeQty(1); return false;" title="increase"
+                                                                    class="increase">
+                                                                    <i class="fa fa-angle-up"></i>
+                                                                </button>
+                                                                <input type="text" name="quantity" value="1"
+                                                                    size="2" id="input-quantity" class="form-control">
+                                                                <button onclick="changeQty(0); return  false;" title="decrease"
+                                                                    class="decrease">
+                                                                    <i class="fa fa-angle-down"></i>
+                                                                </button>
+                                                            </div>
+                                                            <input type="hidden" name="product_id" value="{{ $product->id }}">
                                                         </div>
-                                                        <input type="hidden" name="product_id">
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <a href="#" title="Add to Cart" class="btn">
-                                                        <i class="fa fa-shopping-cart"></i>
-                                                        Add to Cart
-                                                    </a>
-                                                </li>
-
-                                            </ul>
+                                                    </li>
+                                                    <li>
+                                                        <button type="submit" class="btn btn-primary add-to-cart-button">  <i class="fa fa-shopping-cart"></i>
+                                                            Add to Cart</button>
+                                                    </li>
+                                                </ul>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -313,8 +312,10 @@
             </div>
         </div>
     </div>
+
 @endsection
 @push('scripts')
+
     <script src="{{ asset('js/slick_electranic.js') }}"></script>
     <script src="{{ asset('js/slick.min.js') }}"></script>
     <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
