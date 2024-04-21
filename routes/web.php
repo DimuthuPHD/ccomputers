@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\HomeController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\FfrontEnd\CheckoutController;
 use App\Http\Controllers\FrontEnd\Auth\LoginController;
@@ -56,4 +57,7 @@ Route::group(['middleware' => 'auth:web', 'prefix' => 'admin', 'as' => 'admin.']
     Route::resource('categories', CategoryController::class);
     Route::resource('products', ProductController::class);
     Route::get('products/{product}/media/{media}/delete', [ProductController::class, 'removeMedia'])->name('products.delete.images');
+    Route::get('orders', [OrderController::class, 'index'])->name('orders.index');
+    Route::get('orders/{order}/view', [OrderController::class, 'view'])->name('orders.view');
+    Route::put('orders/{order}/update', [OrderController::class, 'update'])->name('orders.update');
 });

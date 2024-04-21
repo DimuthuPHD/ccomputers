@@ -30,4 +30,8 @@ class Order extends Model
         return $this->hasOne(OrderAddress::class)->where('type', 'secondary');
     }
 
+    public function customer() {
+        return $this->belongsTo(Customer::class, 'user_id', 'id');
+    }
+
 }

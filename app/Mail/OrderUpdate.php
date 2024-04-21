@@ -10,7 +10,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class OrderConfirmation extends Mailable
+class OrderUpdate extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -28,7 +28,7 @@ class OrderConfirmation extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Order Confirmation',
+            subject: 'Order Status Update',
         );
     }
 
@@ -38,7 +38,7 @@ class OrderConfirmation extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'email.order-confirmation',
+            view: 'email.order-updated',
         );
     }
 

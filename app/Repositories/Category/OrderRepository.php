@@ -15,5 +15,9 @@ class OrderRepository extends BaseRepository
         $this->model = $model;
     }
 
+    public function paginate($paginate = 10){
+        return $this->model->newQuery()->paginate($paginate);
+    }
+
 
 }

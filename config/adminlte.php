@@ -304,7 +304,13 @@ return [
             'text' => 'products',
             'url' => 'admin/products',
             'icon' => 'fas fa-fw fa-book',
-        ]
+        ],
+        ['header' => 'Orders'],
+        [
+            'text' => 'orders',
+            'url' => 'admin/orders',
+            'icon' => 'fas fa-fw fa-shopping-cart',
+        ],
     ],
 
     /*
