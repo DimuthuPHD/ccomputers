@@ -4,12 +4,14 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\ReviewController as AdminReviewController;
 use App\Http\Controllers\FfrontEnd\CheckoutController;
 use App\Http\Controllers\FrontEnd\Auth\LoginController;
 use App\Http\Controllers\FrontEnd\Auth\RegisterController;
 use App\Http\Controllers\FrontEnd\CartController;
 use App\Http\Controllers\FrontEnd\CustomerController;
 use App\Http\Controllers\FrontEnd\HomeController as FrontEndHomeController;
+use App\Http\Controllers\FrontEnd\ReviewController;
 use App\Http\Controllers\FrontEnd\StoreController;
 use Illuminate\Support\Facades\Route;
 
@@ -46,6 +48,7 @@ Route::group(['as' => 'fr.'], function () {
     Route::group(['middleware' => 'auth:customer', 'prefix' => 'customer', 'as' => 'customer.'], function () {
         Route::get('/dashboard', [CustomerController::class, 'index'])->name('dashboard');
         Route::post('logout', [LoginController::class, 'logout'])->name('customer.logout');
+        Route::post('review/add/{product}', [ReviewController::class, 'submit'])->name('review.add');
     });
 
 });
@@ -60,4 +63,6 @@ Route::group(['middleware' => 'auth:web', 'prefix' => 'admin', 'as' => 'admin.']
     Route::get('orders', [OrderController::class, 'index'])->name('orders.index');
     Route::get('orders/{order}/view', [OrderController::class, 'view'])->name('orders.view');
     Route::put('orders/{order}/update', [OrderController::class, 'update'])->name('orders.update');
+    Route::get('reviews', [AdminReviewController::class, 'index'])->name('review.index');
+    Route::get('reviews/export', [AdminReviewController::class, 'export'])->name('review.export');
 });

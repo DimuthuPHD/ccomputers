@@ -11,8 +11,13 @@
         width: 250px;
         height: 250px;
         position: relative;
-        float: inline-end;
     }
+
+    .product-images {
+	width: 250px;
+	height: 250px;
+	object-fit: cover;
+}
 
     .remove_image {
         position: absolute;
@@ -67,7 +72,7 @@
                 @if ($mediaItems)
                     @foreach ($mediaItems as $key => $image)
                         <div class="prodouct-image-container">
-                            <a href="{{ route('admin.products.delete.images', [$model->id, $image->id]) }}"
+                            <a href="{{ route('admin.products.delete.images', [$model->slug, $image->id]) }}"
                                 class="remove_image"><i class="fas fa-fw fa-window-close"></i></a>
                             <img src="{{ $image->getFullUrl() }}" alt="" class="product-images">
                         </div>

@@ -311,6 +311,12 @@ return [
             'url' => 'admin/orders',
             'icon' => 'fas fa-fw fa-shopping-cart',
         ],
+        ['header' => 'Customer feedbacks'],
+        [
+            'text' => 'reviews',
+            'url' => 'admin/reviews',
+            'icon' => 'fas fa-fw fa-comments',
+        ],
     ],
 
     /*

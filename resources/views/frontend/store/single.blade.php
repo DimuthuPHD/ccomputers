@@ -251,55 +251,59 @@
                             </div>
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="review-form">
                                 @if (auth('customer')->user())
-                                    <div class="product_contect_wrapper">
-                                        <div class="btc_shop_single_prod_right_section">
-                                            <h1>Add a Review</h1>
-                                            <p>Your email address will not be published. Required fields are marked *</p>
-                                            <div class="wrap">
-                                                Your Rating:
-                                                <div class="inputs">
+                                    <form action="{{route('fr.customer.review.add', $product->slug)}}" method="post">
+                                        @csrf
+                                        <div class="product_contect_wrapper">
+                                            <div class="btc_shop_single_prod_right_section">
+                                                <h1>Add a Review</h1>
+                                                <p>Your email address will not be published. Required fields are marked *</p>
+                                                <div class="wrap">
+                                                    Your Rating:
+                                                    <div class="inputs">
 
-                                                    <input type="checkbox" name="" id="1">
-                                                    <label for="1">★</label>
+                                                        <input type="checkbox" name="" id="1">
+                                                        <label for="1">★</label>
 
-                                                    <input type="checkbox" name="" id="2">
-                                                    <label for="2">★</label>
+                                                        <input type="checkbox" name="" id="2">
+                                                        <label for="2">★</label>
 
-                                                    <input type="checkbox" name="" id="3">
-                                                    <label for="3">★</label>
+                                                        <input type="checkbox" name="" id="3">
+                                                        <label for="3">★</label>
 
-                                                    <input type="checkbox" name="" id="4">
-                                                    <label for="4">★</label>
+                                                        <input type="checkbox" name="" id="4">
+                                                        <label for="4">★</label>
 
-                                                    <input type="checkbox" name="" id="5">
-                                                    <label for="5">★</label>
+                                                        <input type="checkbox" name="" id="5">
+                                                        <label for="5">★</label>
 
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="shop_pdt_form">
-                                            <div class="row">
-                                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                                    <input type="text" placeholder="Your Name*"><i
-                                                        class="fa fa-user"></i>
-                                                </div>
-                                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                                    <input type="email" placeholder="Your Email*"><i
-                                                        class="fa fa-envelope"></i>
-                                                </div>
-                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                    <div class="shop_pdt_textarea">
-                                                        <textarea rows="4" placeholder=" Your Review*"></textarea><i class="fa fa-question-circle"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                    <div class="shop_btn_wrapper">
-                                                        <button class="btn">Submit</button>
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="shop_pdt_form">
+                                                <div class="row">
+                                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                        <input type="text" placeholder="Your Name*" name="name" value="{{old('name')}}"><i class="fa fa-user"></i>
+                                                        <span class="text-danger">{{$errors->first('name')}}</span>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                        <input type="email" placeholder="Your Email*" name="email" value="{{old('email')}}"><i class="fa fa-envelope"></i>
+                                                        <span class="text-danger">{{$errors->first('email')}}</span>
+                                                    </div>
+                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                        <div class="shop_pdt_textarea">
+                                                            <textarea rows="4" placeholder=" Your Review*" name="review_text">{{old('review_text')}}</textarea><i class="fa fa-question-circle"></i>
+                                                            <span class="text-danger">{{$errors->first('review_text')}}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                        <div class="shop_btn_wrapper">
+                                                            <button class="btn">Submit</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
+                                    </form>
                                 @else
                                     Please <a href="{{ route('fr.customer.login', ['redirect_back' => request()->path()]) }}">Login</a> to make a Review
                                 @endif

@@ -27,8 +27,8 @@
                     <th scope="row">{{$product->id}}</th>
                     <td>{{$product->name}}</td>
                     <td>
-                        <a href="{{route('admin.products.edit', $product->id)}}" class="btn btn-info">Edit</a>
-                        <a href="#" onclick="confirmAndSubmit(event, '{{ route('admin.products.destroy', $product->id) }}')" class="btn btn-danger">Delete</a>
+                        <a href="{{route('admin.products.edit', $product->slug)}}" class="btn btn-info">Edit</a>
+                        <a href="#" onclick="confirmAndSubmit(event, '{{ route('admin.products.destroy', $product->slug) }}')" class="btn btn-danger">Delete</a>
                     </td>
                     </tr>
                 @endforeach
