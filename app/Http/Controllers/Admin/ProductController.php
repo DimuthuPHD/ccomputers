@@ -72,6 +72,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
+
         $categories = $this->categoryRepository->getParents();
         return view('admin.product.edit')->withModel($product)->withCategories($categories);
     }

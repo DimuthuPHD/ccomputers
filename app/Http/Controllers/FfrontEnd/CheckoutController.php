@@ -113,7 +113,12 @@ class CheckoutController extends Controller
     private function updateStocks($stock_data = []){
 
         foreach ($stock_data as $id => $stock) {
-            $this->productRepository->updateById($id, ['stock' => $stock]);
+            $product = $this->productRepository->getById($id);
+
+            if($product){
+                    $current_stock = $product->stock >= $stock ? $product->stock - $stock : 0;
+                    $product->update(['stock' => $current_stock]);
+            }
         }
 
     }

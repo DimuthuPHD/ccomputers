@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Order extends Model
 {
-    use HasFactory;
+    use HasFactory, LogsActivity;
 
     protected $fillable = [
         'user_type',
@@ -32,6 +34,18 @@ class Order extends Model
 
     public function customer() {
         return $this->belongsTo(Customer::class, 'user_id', 'id');
+    }
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+        ->logOnly([ 'user_type', 'user_id', 'payment_method', 'payment_status', 'sub_total', 'status'])
+        ->logOnlyDirty()
+        ->dontSubmitEmptyLogs();
+    }
+
+    public function setCauser(?User $causer): static{
+
     }
 
 }
