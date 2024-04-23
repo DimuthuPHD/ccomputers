@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\FrontEnd;
 
 use App\Http\Controllers\Controller;
+use App\Models\Product;
 use App\Repositories\Category\CategoryRepository;
 use App\Repositories\Product\ProductRepository;
 use Illuminate\Http\Request;
@@ -27,9 +28,13 @@ class StoreController extends Controller
         }
 
 
-        // dd($request->all());
-
-        $products = $this->productRepository->filter($request->all());
+        $products = $this->productRepository->filter(array_filter($request->all()));
         return view('frontend.store.index', ['products' =>$products, 'categories' => $this->categoryRepository->getParents()]);
+    }
+
+
+    public function show(Product $product){
+        $categories = $this->categoryRepository->getParents();
+        return view('frontend.store.single', ['product' =>$product, 'categories' => $categories, ]);
     }
 }

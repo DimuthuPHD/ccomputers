@@ -1,11 +1,10 @@
 <div class="header_search_wrapper">
-   <form action="">
-    <input type="text" placeholder="Search here">
-    <select>
-        <option value="0" selected="selected">All Categories</option>
-
+   <form action="{{route('fr.store')}}">
+    <input type="text" placeholder="Search here" name="search" value="{{request()->get('search')}}">
+    <select name="cat">
+        <option value="">All Categories</option>
         @foreach ($categories as $category)
-            <option value="{{$category->slug}}">{{$category->name}}</option>
+            <option value="{{$category->slug}}" {{request()->get('cat') == $category->slug ? 'selected' : null}}>{{$category->name}}</option>
         @endforeach
     </select>
     <button>

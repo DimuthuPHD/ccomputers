@@ -9,14 +9,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title', config('app.name'))</title>
     <!-- Place favicon.ico in the root directory -->
-    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{asset('images/favicon.png')}}">
     <!-- font-awesome -->
     <link href="{{asset('css/font-awesome.min.css')}}" rel="stylesheet">
     <link href="{{asset('css/fonts.css')}}" rel="stylesheet">
     <!-- Bootstrap -->
     <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
-    <link rel="stylesheet" href="{{asset('css/o')}}wl.carousel.css" />
-    <link rel="stylesheet" href="{{asset('css/owl.th')}}eme.default.css" />
+    <link rel="stylesheet" href="{{asset('css/owl.carousel.css')}}" />
+    <link rel="stylesheet" href="{{asset('css/owl.theme.default.css')}}" />
     <!-- Animation Css -->
     <link href="{{asset('css/animate.css')}}" rel="stylesheet">
     <link href="{{asset('css/jquery-ui.min.css')}}" rel="stylesheet">
@@ -24,11 +24,17 @@
     <link href="{{asset('css/flaticon.css')}}" rel="stylesheet">
     <!-- Style CSS -->
     <link href="{{asset('css/shop_electranics.css')}}" rel="stylesheet">
-
+    <script src="{{asset('js/jsalert.min.js.js')}}"></script>
     @stack('styles')
 </head>
 
 <body>
+
+    @if(Session::has('success'))
+        <script type="text/javascript">
+            JSAlert.alert("{{ session()->get('success') }}").dismissIn(1000 * 10);
+        </script>
+    @endif
 
     <a href="javascript:" id="return-to-top"><i class="fa fa-angle-up"></i></a>
     <!-- header start -->
@@ -41,12 +47,12 @@
                     <ul class="list-inline visible-xs">
                         <li class="dropdown">
 
-                                @if (auth()->user('customer') !== null)
+                                @if (auth('customer')->user())
                                 <a href="{{route('fr.customer.dashboard')}}" title="My Account" class="res_list_link" >
                                     <i class="fa fa-user"></i>
                                 </a>
                                 @else
-                                <a href="{{route('fr.customer.dashboard')}}" title="My Account" class="dropdown-toggle res_list_link" data-toggle="dropdown">
+                                <a href="{{route('fr.customer.login')}}" title="My Account" class="dropdown-toggle res_list_link" data-toggle="dropdown">
                                     <i class="fa fa-user"></i>
                                 </a>
                                 @endif
@@ -123,7 +129,7 @@
                         </li>
                         <li>
 
-                            @if (auth()->user('customer') !== null)
+                            @if (auth('customer')->user())
                             <a href="{{route('fr.customer.dashboard')}}" title="My Account">
                                 <span>
 									<i class="fa fa-user"></i>
@@ -205,20 +211,23 @@
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                         <span>
-											<i class="fa fa-shopping-cart"></i>
+                                            <i class="fa fa-shopping-cart"></i>
 										</span>
                                         <i class="fa fa-angle-down hidden-sm"></i>
                                     </a>
-                                    <span class="section2_cart_badge">2</span>
+                                    <span class="section2_cart_badge">{{getCart()->getTotalQuantity()}}</span>
+                                    @if (getCart()->getTotalQuantity() > 0)
                                     <div class="section2_cart_dropdown dropdown-menu">
                                         <div class="dropdown-cart-products">
+
+                                            @foreach (getCart()->getContent() as $product)
                                             <div class="product">
                                                 <div class="product-details">
                                                     <h4 class="product-title">
-														<a href="product.html">White lumia 9001 </a>
+														<a href="product.html">{{$product->name}}</a>
 													</h4>
                                                     <span class="cart-product-info">
-														<span class="cart-product-qty">1</span> x $99.00
+														<span class="cart-product-qty">{{$product->quantity}}</span> x LKR{{number_format($product->price, 2)}}
                                                     </span>
                                                 </div>
                                                 <!-- End .product-details -->
@@ -226,48 +235,31 @@
                                                     <a href="#" class="product-image">
                                                         <img src="{{asset('images/shop/electronics/product-1.jpg')}}" alt="product">
                                                     </a>
-                                                    <a href="#" class="btn-remove" title="Remove Product">
+                                                    <a href="{{route('fr.cart.remove', $product->model->slug)}}" class="btn-remove" title="Remove Product">
                                                         <i class="fa fa-close"></i>
                                                     </a>
                                                 </figure>
                                             </div>
-                                            <!-- End .product -->
-                                            <div class="product">
-                                                <div class="product-details">
-                                                    <h4 class="product-title">
-														<a href="product.html">Play Station 4   </a>
-													</h4>
-                                                    <span class="cart-product-info">
-														<span class="cart-product-qty">1</span> x $99.00
-                                                    </span>
-                                                </div>
-                                                <!-- End .product-details -->
-                                                <figure class="product-image-container">
-                                                    <a href="#" class="product-image">
-                                                        <img src="{{asset('images/shop/electronics/product-2.jpg')}}" alt="product">
-                                                    </a>
-                                                    <a href="#" class="btn-remove" title="Remove Product">
-                                                        <i class="fa fa-close"></i>
-                                                    </a>
-                                                </figure>
-                                            </div>
-                                            <!-- End .product -->
+                                            @endforeach
+
+
                                         </div>
                                         <!-- End .cart-product -->
                                         <div class="dropdown-cart-total">
                                             <span>Total</span>
-                                            <span class="cart-total-price">$198.00</span>
+                                            <span class="cart-total-price">LKR {{number_format(getCart()->getSubTotal(), 2)}}</span>
                                         </div>
-                                        <!-- End .dropdown-cart-total -->
-                                        <div class="dropdown-cart-action">
-                                            <button class="btn btn_left">View Cart</button>
-                                            <button class="btn">Checkout</button>
+                                            <!-- End .dropdown-cart-total -->
+                                            <div class="dropdown-cart-action">
+                                                <a href="{{route('fr.cart.index')}}" class="btn btn_left">View Cart</a>
+                                                <a href="{{route('fr.checkout.index')}}" class="btn">Checkout</a>
+                                            </div>
+                                            <!-- End .dropdown-cart-total -->
                                         </div>
-                                        <!-- End .dropdown-cart-total -->
-                                    </div>
-                                </li>
-                                <!-- /.Cart Option -->
-                            </ul>
+                                        @endif
+                                    </li>
+                                    <!-- /.Cart Option -->
+                                </ul>
 
                         </div>
                     </div>
@@ -751,8 +743,6 @@
             }, 'slow');
         }
     </script>
+    @stack('scripts')
 </body>
-
-
-<!-- Mirrored from afuture.webstrot.com/homepage7_electronic.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 03 Mar 2024 16:31:38 GMT -->
 </html>

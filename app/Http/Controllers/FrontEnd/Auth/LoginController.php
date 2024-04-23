@@ -21,12 +21,6 @@ class LoginController extends Controller
 
     use AuthenticatesUsers;
 
-    /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
-    protected $redirectTo = 'customer/dashboard';
 
     /**
      * Create a new controller instance.
@@ -36,6 +30,16 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('web')->except('logout');
+    }
+
+    /**
+     * Where to redirect users after login.
+     *
+     * @var string
+     */
+    protected function redirectTo()
+    {
+        return request()->get('redirect_back', 'customer/dashboard');
     }
 
     public function showLoginForm()

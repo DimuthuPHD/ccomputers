@@ -9,6 +9,8 @@ use App\Models\Product;
 use App\Repositories\Category\CategoryRepository;
 use App\Repositories\Product\ProductRepository;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Request;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class ProductController extends Controller
 {
@@ -47,6 +49,11 @@ class ProductController extends Controller
         try {
             $data = $request->validated();
             $product = $this->productRepository->create($data);
+            if($request->has('images')){
+                foreach ($request->images as $key => $image) {
+                   $product->addMedia($image)->toMediaCollection('product-images');
+                }
+            }
             $categoryIds = Arr::get($data, 'categories', []);
             $product->categories()->sync($categoryIds);
 
@@ -65,6 +72,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
+
         $categories = $this->categoryRepository->getParents();
         return view('admin.product.edit')->withModel($product)->withCategories($categories);
     }
@@ -77,12 +85,18 @@ class ProductController extends Controller
 
         try {
             $data = $request->validated();
+
             $product->update($data);
+            if($request->has('images')){
+                foreach ($request->images as $key => $image) {
+                   $product->addMedia($image)->toMediaCollection('product-images');
+                }
+            }
+
             $categoryIds = Arr::get($data, 'categories', []);
             $product->categories()->sync($categoryIds);
             return to_route('admin.products.index')->with(['success' => 'Product updated successfully ! ']);
         } catch (\Throwable $th) {
-            dd($th);
             logger()->log('error', $th);
             return back()->with(['error' => 'Product updating faild.  please try again!']);
         }
@@ -103,6 +117,21 @@ class ProductController extends Controller
             dd($th);
             logger()->log('error', $th);
             return back()->with(['error' => 'Product deleting faild.  please try again!']);
+        }
+        abort(404);
+    }
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function removeMedia(Product $product, Media $media)
+    {
+        try {
+            $product->deleteMedia($media->id);
+            return back()->with(['success' => 'Media deleted successfully ! ']);
+        } catch (\Throwable $th) {
+            dd($th);
+            logger()->log('error', $th);
+            return back()->with(['error' => 'Media deleting faild.  please try again!']);
         }
         abort(404);
     }
