@@ -24,6 +24,7 @@ class HomeController extends Controller
 
         $categories = $this->categoryRepository->getParents();
         $parentFeatureCats = $this->categoryRepository->getParentFeatured();
-        return view('frontend.home.index', ['categories' => $categories, 'parent_feature_cats' => $parentFeatureCats]);
+        $bestRatedProducts = $this->productRepository->getBestRated();
+        return view('frontend.home.index', ['categories' => $categories, 'parent_feature_cats' => $parentFeatureCats, 'bestRatedProducts' => $bestRatedProducts]);
     }
 }

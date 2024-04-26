@@ -55,4 +55,8 @@ class Product extends Model implements HasMedia
         return 'slug';
     }
 
+    public function reviews(){
+        return $this->hasMany(Review::class);
+    }
+
 }

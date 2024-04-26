@@ -258,34 +258,50 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- products_category_wrapper end -->
+                            <!-- products_category_wrapper end -->
+                            <!-- btc_shop_index_content_main start -->
+                            <div class="btc_shop_index_content_main">
+                            @foreach ($parent_feature_cats as $cat)
+                                @if ($cat->products->count())
+                                        <div class="section_heading">
+                                            <h2>{{$cat->name}}</h2>
+                                            <span class="border center"></span>
+                                        </div>
+                                        <!-- product_main_slider_wrapper start -->
+                                        <div class="product_main_slider_wrapper">
+                                            <div class="owl-carousel owl-theme">
+                                                <div class="item">
+                                                    <div class="row">
+                                                        @foreach ($cat->products as $product)
+                                                            <x-front-end.product :product="$product"></x-front-end.product>
+                                                        @endforeach
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- product_main_slider_wrapper end -->
+                                        @endif
+                                        @endforeach
 
-                    @foreach ($parent_feature_cats as $cat)
 
-                    @if ($cat->products->count())
-                        <!-- btc_shop_index_content_main start -->
-                        <div class="btc_shop_index_content_main">
-                            <div class="section_heading">
-                                <h2>{{$cat->name}}</h2>
-                                <span class="border center"></span>
-                            </div>
-                            <!-- product_main_slider_wrapper start -->
-                            <div class="product_main_slider_wrapper">
-                                <div class="owl-carousel owl-theme">
-                                    <div class="item">
-                                        <div class="row">
-                                            @foreach ($cat->products as $product)
-                                                <x-front-end.product :product="$product"></x-front-end.product>
-                                            @endforeach
+                                <div class="section_heading">
+                                    <h2>Best Rated Products</h2>
+                                    <span class="border center"></span>
+                                </div>
+                                <!-- product_main_slider_wrapper start -->
+                                <div class="product_main_slider_wrapper">
+                                    <div class="owl-carousel owl-theme">
+                                        <div class="item">
+                                            <div class="row">
+                                                @foreach ($bestRatedProducts as $product)
+                                                    <x-front-end.product :product="$product" :show_rating="true"></x-front-end.product>
+                                                @endforeach
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                                <!-- product_main_slider_wrapper end -->
                             </div>
-                            <!-- product_main_slider_wrapper end -->
-                    @endif
-                    </div>
-                    <!-- btc_shop_index_content_main end -->
-                    @endforeach
 
                     </div>
                     <!-- shop_full_width end -->
