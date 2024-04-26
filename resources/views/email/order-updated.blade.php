@@ -40,8 +40,8 @@
 
         <p><strong>User:</strong> {{ $order->primaryAddress->first_name }}</p>
         <p><strong>Order ID:</strong> {{ $order->id }}</p>
-        <p><strong>Updated Status:</strong> <span class="status-update">{{ $order->status }}</span></p>
-        <p><strong>Payment Status:</strong> {{ $order->payment_status }}</p>
+        <p><strong>Updated Status:</strong> <span class="status-update">{{ $order?->o_status?->status }}</span></p>
+        <p><strong>Payment Status:</strong> {{ $order?->paymentStatus?->status }}</p>
 
         <p>Please note that the order status has been updated to <span class="status-update">{{ $order->status }}</span>.</p>
 

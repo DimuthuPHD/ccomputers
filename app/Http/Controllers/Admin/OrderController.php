@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Mail\OrderUpdate;
 use App\Models\Order;
+use App\Models\OrderStasus;
+use App\Models\PaymentStasus;
 use App\Repositories\Category\OrderRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -19,12 +21,15 @@ class OrderController extends Controller
     }
 
     public function index(){
+
         $orders = $this->orderRepository->paginate(10);
         return view('admin.order.index', ['orders' => $orders]);
     }
 
     public function view(Order $order){
-        return view('admin.order.edit', ['model' => $order]);
+        $paymentStatuses = PaymentStasus::all()->pluck('status', 'id')->toArray();
+        $orderStatuses = OrderStasus::all()->pluck('status', 'id')->toArray();
+        return view('admin.order.edit', ['model' => $order, 'paymentStatuses' => $paymentStatuses, 'orderStatuses' => $orderStatuses]);
     }
 
 

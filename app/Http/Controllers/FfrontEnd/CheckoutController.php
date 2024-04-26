@@ -48,8 +48,8 @@ class CheckoutController extends Controller
             'user_id' => $logged_in_user ? $logged_in_user->id : null,
             'payment_method' => 'CASH_ON_DELIVERY',
             'sub_total' => getCart()->getSubTotal(),
-            'payment_status' => 'PENDING',
-            'status' => 'PENDING'
+            'payment_status' => 1,
+            'status' => 1
         ];
 
         $order = Order::create($order_data);

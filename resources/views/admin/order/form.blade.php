@@ -46,20 +46,20 @@
                 <div class="form-group">
                     <label for="status">Status:</label>
                     <select class="form-control" name="status" id="status">
-                        <option value="PENDING" {{ $model?->status === 'PENDING' ? 'selected' : '' }}>Pending</option>
-                        <option value="PROCESSING" {{ $model?->status === 'PROCESSING' ? 'selected' : '' }}>Processing</option>
-                        <option value="SHIPPED" {{ $model?->status === 'SHIPPED' ? 'selected' : '' }}>Shipped</option>
-                        <option value="DELIVERED" {{ $model?->status === 'DELIVERED' ? 'selected' : '' }}>Delivered</option>
-                        <option value="CANCELED" {{ $model?->status === 'CANCELED' ? 'selected' : '' }}>Canceled</option>
+                        @foreach ($orderStatuses as $id => $status)
+                            <option value="{{$id}}" {{ $model?->status === $id ? 'selected' : '' }}>{{$status}}</option>
+                        @endforeach
                     </select>
                 </div>
 
                 <div class="form-group">
                     <label for="payment_status">Payment Status:</label>
                     <select class="form-control" name="payment_status" id="payment_status">
-                        <option value="PENDING" {{ $model?->payment_status === 'PENDING' ? 'selected' : '' }}>Pending</option>
-                        <option value="PAID" {{ $model?->payment_status === 'PAID' ? 'selected' : '' }}>Paid</option>
-                        <option value="CANCELED" {{ $model?->payment_status === 'CANCELED' ? 'selected' : '' }}>Canceled</option>
+
+                        @foreach ($paymentStatuses as $id => $status)
+                            <option value="{{$id}}" {{ $model?->payment_status === $id ? 'selected' : '' }}>{{$status}}</option>
+                        @endforeach
+
                     </select>
                 </div>
 

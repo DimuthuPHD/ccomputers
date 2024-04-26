@@ -29,8 +29,8 @@
                     <td>{{$order?->primaryAddress?->first_name}}</td>
                     <td>LKR {{number_format($order?->sub_total, 2)}}</td>
                     <td>{{$order?->payment_method}}</td>
-                    <td>{{$order?->payment_status}}</td>
-                    <td>{{$order?->status}}</td>
+                    <td>{{$order?->paymentStatus?->status}}</td>
+                    <td>{{$order?->o_status?->status}}</td>
 
                     <td>
                         <a href="{{route('admin.orders.view', $order->id)}}" class="btn btn-info">Edit</a>

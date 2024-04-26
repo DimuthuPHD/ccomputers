@@ -16,10 +16,13 @@ return new class extends Migration
             $table->string('user_type');
             $table->unsignedBigInteger('user_id')->nullable()->default(null);
             $table->string('payment_method');
-            $table->string('payment_status');
+            $table->unsignedBigInteger('payment_status');
             $table->string('sub_total');
-            $table->string('status');
+            $table->unsignedBigInteger('status');
             $table->timestamps();
+
+            $table->foreign('status')->references('id')->on('order_statuses')->onDelete('cascade');
+            $table->foreign('payment_status')->references('id')->on('payment_statuses')->onDelete('cascade');
         });
     }
 
