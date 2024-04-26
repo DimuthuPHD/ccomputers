@@ -9,7 +9,7 @@ use Illuminate\View\Component;
 
 class Product extends Component
 {
-    private $product;
+    public $product;
     /**
      * Create a new component instance.
      */
@@ -23,6 +23,6 @@ class Product extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.front-end.product', ['product' => $this->product]);
+        return view('components.front-end.product');
     }
 }

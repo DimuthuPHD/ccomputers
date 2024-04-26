@@ -2,6 +2,7 @@
 
 use App\Models\Product;
 use App\Repositories\BaseRepository;
+use Illuminate\Support\Facades\DB;
 
 class ProductRepository extends BaseRepository {
 
@@ -35,5 +36,23 @@ class ProductRepository extends BaseRepository {
 
         return $products;
     }
+
+    public function getBestRated($sentiment = 'positive', $limit = 10) {
+
+        $subquery = DB::table('reviews')
+            ->select('product_id', DB::raw('AVG(rating) as average_rating'))
+            ->where('review_sentiment', $sentiment)
+            ->groupBy('product_id');
+            
+        return $this->model
+            ->joinSub($subquery, 'sub', function ($join) {
+                $join->on('products.id', '=', 'sub.product_id');
+            })
+            ->orderByDesc('sub.average_rating')
+            ->limit($limit)
+            ->get();
+    }
+
+
 
 }

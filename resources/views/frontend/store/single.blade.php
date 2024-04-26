@@ -125,7 +125,7 @@
                                             <i class="fa fa-star-half-empty"></i>
                                             <i class="fa fa-star-o"></i>
                                         </div>
-                                        <div class="btc_shop_product_availability"><small>In Stock</small></div>
+                                        <div class="btc_shop_product_availability"><small>{{$product->stock > 0 ? 'In Stock' : 'Out of Stock'}}</small></div>
                                     </div>
                                     <div class="btc_shop_sin_pro_icon_wrapper">
                                         <h5>These edible ruby red roots are smooth and bulbous and have the highest sugar
@@ -186,7 +186,7 @@
                                             </li>
                                             <li class="active">
                                                 <a href="#product_tab_3" data-toggle="tab">
-                                                    Reviews (3)
+                                                    Reviews ({{$product->reviews()->count()}})
                                                 </a>
                                             </li>
                                         </ul>
@@ -239,8 +239,16 @@
                                             </div>
                                             <div class="tab-pane fade in active" id="product_tab_3">
                                                 <div class="comment_box_blog">
+                                                    @php
+                                                        $reviews = $product->reviews()->latest()->paginate(5);
+                                                    @endphp
 
-                                                    <x-front-end.review-block></x-front-end.review-block>
+                                                    @foreach ($reviews as $review)
+                                                        <x-front-end.review-block :review="$review"></x-front-end.review-block>
+                                                    @endforeach
+
+                                                    {{$reviews->links('pagination::simple-bootstrap-5')}}
+
 
                                                 </div>
                                             </div>
@@ -257,7 +265,7 @@
                                             <div class="btc_shop_single_prod_right_section">
                                                 <h1>Add a Review</h1>
                                                 <p>Your email address will not be published. Required fields are marked *</p>
-                                                <div class="wrap">
+                                                {{-- <div class="wrap">
                                                     Your Rating:
                                                     <div class="inputs">
 
@@ -277,7 +285,7 @@
                                                         <label for="5">★</label>
 
                                                     </div>
-                                                </div>
+                                                </div> --}}
                                             </div>
                                             <div class="shop_pdt_form">
                                                 <div class="row">
