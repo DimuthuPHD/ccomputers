@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Model;
@@ -10,7 +11,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class Customer extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, MustVerifyEmail;
 
     /**
      * The attributes that are mass assignable.
@@ -25,7 +26,11 @@ class Customer extends Authenticatable
         'phone',
         'address',
         'city',
-        'postal_code'
+        'postal_code',
+        'otp',
+        'otp_sent_count',
+        'blocked_until',
+        'last_otp_at'
     ];
 
     /**
@@ -45,6 +50,8 @@ class Customer extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'blocked_until' => 'datetime',
+        'last_otp_at' => 'datetime',
         'password' => 'hashed',
     ];
 }

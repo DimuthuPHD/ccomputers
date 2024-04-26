@@ -36,6 +36,14 @@ class Order extends Model
         return $this->belongsTo(Customer::class, 'user_id', 'id');
     }
 
+    public function o_status() {
+        return $this->belongsTo(OrderStasus::class, 'status', 'id');
+    }
+
+    public function paymentStatus() {
+        return $this->belongsTo(PaymentStasus::class, 'payment_status', 'id');
+    }
+
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()

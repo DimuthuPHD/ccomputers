@@ -36,6 +36,12 @@
         </script>
     @endif
 
+    @if(Session::has('error'))
+    <script type="text/javascript">
+        JSAlert.alert("{{ session()->get('error') }}").dismissIn(1000 * 10);
+    </script>
+@endif
+
     <a href="javascript:" id="return-to-top"><i class="fa fa-angle-up"></i></a>
     <!-- header start -->
     <div class="header">

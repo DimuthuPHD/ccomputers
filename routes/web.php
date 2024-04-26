@@ -30,6 +30,9 @@ use Illuminate\Support\Facades\Route;
 Route::group(['as' => 'fr.'], function () {
     Route::get('/', [FrontEndHomeController::class, 'index'])->name('home');
     Route::get('/customer/login', [LoginController::class, 'showLoginForm']);
+    Route::get('/customer/verify-email/{customer}', [LoginController::class, 'showEmailVerify'])->name('customer.verification');
+    Route::post('/customer/verify-email/{customer}', [LoginController::class, 'submitEmailVerification'])->name('customer.submitEmailVerification');
+    Route::post('/customer/resend-otp/{customer}', [LoginController::class, 'resendOtp'])->name('customer.sendOtp');
     Route::post('/customer/login', [LoginController::class, 'login'])->name('customer.login');
     Route::get('/customer/register', [RegisterController::class, 'showRegistrationForm'])->name('customer.register');
     Route::post('/customer/register', [RegisterController::class, 'register'])->name('customer.register.submit');
@@ -45,12 +48,11 @@ Route::group(['as' => 'fr.'], function () {
 
 
 
-    Route::group(['middleware' => 'auth:customer', 'prefix' => 'customer', 'as' => 'customer.'], function () {
+    Route::group(['middleware' => ['auth:customer', 'verified:customer.login'], 'prefix' => 'customer', 'as' => 'customer.'], function () {
         Route::get('/dashboard', [CustomerController::class, 'index'])->name('dashboard');
         Route::post('logout', [LoginController::class, 'logout'])->name('customer.logout');
         Route::post('review/add/{product}', [ReviewController::class, 'submit'])->name('review.add');
     });
-
 });
 
 Auth::routes();
