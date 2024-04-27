@@ -15,7 +15,6 @@ class CategoryRepository extends BaseRepository
         $this->model = $model;
     }
 
-
     function getParents()
     {
         return $this->model->whereNull('parent_id')->with('children')->get();
@@ -29,5 +28,10 @@ class CategoryRepository extends BaseRepository
     function getParentFeatured()
     {
         return $this->model->whereNull('parent_id')->where(['is_featured' => 1])->get();
+    }
+
+    function paginate($paginate = 10)
+    {
+        return $this->model->paginate($paginate);
     }
 }

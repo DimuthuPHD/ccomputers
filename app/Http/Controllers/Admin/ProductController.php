@@ -28,7 +28,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = $this->productRepository->all();
+        $products = $this->productRepository->paginate();
         return view('admin.product.index', ['products' => $products,]);
     }
 
@@ -72,7 +72,6 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-
         $categories = $this->categoryRepository->getParents();
         return view('admin.product.edit')->withModel($product)->withCategories($categories);
     }

@@ -68,3 +68,7 @@ Route::group(['middleware' => 'auth:web', 'prefix' => 'admin', 'as' => 'admin.']
     Route::get('reviews', [AdminReviewController::class, 'index'])->name('review.index');
     Route::get('reviews/export', [AdminReviewController::class, 'export'])->name('review.export');
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
