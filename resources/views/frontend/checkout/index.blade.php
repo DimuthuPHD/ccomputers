@@ -18,13 +18,13 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-md-8 col-xs-12 col-sm-6">
-                    <h1> Shopping Cart </h1>
+                    <h1> Checkout </h1>
                 </div>
                 <div class="col-lg-4 col-md-4 col-xs-12 col-sm-6">
                     <div class="sub_title_section">
                         <ul class="sub_title">
                             <li> <a href="/"> Home </a> <i class="fa fa-angle-right" aria-hidden="true"></i> </li>
-                            <li> Shopping Cart <i class="fa fa-angle-right" aria-hidden="true"></i></li>
+                            <li> Checkout <i class="fa fa-angle-right" aria-hidden="true"></i></li>
                         </ul>
                     </div>
                 </div>

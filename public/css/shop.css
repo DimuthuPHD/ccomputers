@@ -2895,3 +2895,6 @@ body {
         width: 100%;
     }
 }
+.table_cart_img figure img {
+	width: 100%;
+}
