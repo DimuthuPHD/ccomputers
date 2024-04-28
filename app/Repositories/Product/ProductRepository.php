@@ -43,7 +43,7 @@ class ProductRepository extends BaseRepository {
             ->select('product_id', DB::raw('AVG(rating) as average_rating'))
             ->where('review_sentiment', $sentiment)
             ->groupBy('product_id');
-            
+
         return $this->model
             ->joinSub($subquery, 'sub', function ($join) {
                 $join->on('products.id', '=', 'sub.product_id');
@@ -53,6 +53,10 @@ class ProductRepository extends BaseRepository {
             ->get();
     }
 
+    function paginate($paginate = 10)
+    {
+        return $this->model->paginate($paginate);
+    }
 
 
 }

@@ -54,5 +54,10 @@ class Customer extends Authenticatable
         'last_otp_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+
+    public function orders(){
+        return $this->hasMany(Order::class, 'user_id');
+    }
 }
 

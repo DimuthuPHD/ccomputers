@@ -47,9 +47,9 @@ Route::group(['as' => 'fr.'], function () {
     Route::post('checkout/submit', [CheckoutController::class, 'submit'])->name('checkout.submit');
 
 
-
     Route::group(['middleware' => ['auth:customer', 'verified:customer.login'], 'prefix' => 'customer', 'as' => 'customer.'], function () {
         Route::get('/dashboard', [CustomerController::class, 'index'])->name('dashboard');
+        Route::get('/orders', [CustomerController::class, 'myOrders'])->name('myOrders');
         Route::post('logout', [LoginController::class, 'logout'])->name('customer.logout');
         Route::post('review/add/{product}', [ReviewController::class, 'submit'])->name('review.add');
     });
@@ -68,3 +68,7 @@ Route::group(['middleware' => 'auth:web', 'prefix' => 'admin', 'as' => 'admin.']
     Route::get('reviews', [AdminReviewController::class, 'index'])->name('review.index');
     Route::get('reviews/export', [AdminReviewController::class, 'export'])->name('review.export');
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

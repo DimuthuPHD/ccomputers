@@ -70,7 +70,7 @@
                                     <button class="btn btn-primary login_btn" type="submit">Login</button>
                                 </div>
                                 <div class="login_message">
-                                    <p>Don’t have an account ? <a href="#"> Sign up </a> </p>
+                                    <p>Don’t have an account ? <a href="{{route('fr.customer.register')}}"> Sign up </a> </p>
                                 </div>
                             </div>
                         </form>

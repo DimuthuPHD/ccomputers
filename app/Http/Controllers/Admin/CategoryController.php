@@ -21,7 +21,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = $this->categoryRepository->all();
+        $categories = $this->categoryRepository->paginate();
         return view('admin.category.index', ['categories' => $categories,]);
     }
 
@@ -57,7 +57,7 @@ class CategoryController extends Controller
      */
     public function show(string $id)
     {
-        //
+        abort(404);
     }
 
     /**

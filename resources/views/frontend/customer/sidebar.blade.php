@@ -17,7 +17,7 @@
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="{{route('fr.customer.myOrders')}}">
                 <i class="fa fa-shopping-cart" aria-hidden="true"></i> Orders
             </a>
         </li>

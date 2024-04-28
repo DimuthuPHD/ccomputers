@@ -35,6 +35,9 @@
             </tbody>
           </table>
     </div>
+    <div class="card-footer">
+        {{$categories->links('pagination::bootstrap-4')}}
+    </div>
 </div>
 
 @stop
