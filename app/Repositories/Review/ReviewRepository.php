@@ -56,7 +56,7 @@ class ReviewRepository extends BaseRepository
 
             $client = new Client();
 
-            $response = $client->post('http://18.143.164.143:8001/predict', [
+            $response = $client->post('https://review.benchami.com/predict', [
                 'headers' => [
                     'Accept' => '/',
                     'Content-Type' => 'application/json'
