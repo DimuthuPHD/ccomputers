@@ -3,7 +3,7 @@
 @section('title', 'orders | List')
 
 @section('content_header')
-    <h1>Orders</h1>
+    <h1>Customer Feedbacks</h1>
 @stop
 
 @section('content')
@@ -14,7 +14,7 @@
                 <form action="{{ route('admin.review.index') }}" method="get">
                 <div class="row">
 
-                        <div class="col-md-1">
+                        <div class="col-md-2">
                             <label for="review_sentiment">Sentiment</label>
                             <select class="form-control" id="review_sentiment" name="review_sentiment">
                                 <option value="">select</option>

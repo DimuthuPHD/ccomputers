@@ -117,7 +117,7 @@
                                 <div class="btc_shop_single_prod_right_section">
                                     <h1>{{ $product->name }}</h1>
                                     <div class="btc_shop_product_price_wrapper">
-                                        <div class="btc_shop_product_price">$49.99</div>
+                                        <div class="btc_shop_product_price">LKR {{ number_format($product->price, 2) }}</div>
                                         <div class="btc_shop_product_rating">
                                             <i class="fa fa-star"></i>
                                             <i class="fa fa-star"></i>

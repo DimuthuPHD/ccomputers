@@ -17,9 +17,7 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
-
 .ftpquota
 .htaccess
 .well-known/
 config/robots.txt
-

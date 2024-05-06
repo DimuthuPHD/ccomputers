@@ -17,13 +17,18 @@ class ReviewController extends Controller
         $this->reviewRepository = $reviewRepository;
     }
 
-    public function submit(Product $product, ReviewRequest $request){
+    public function submit(Product $product, ReviewRequest $request)
+    {
         try {
 
-           $review_sentiment =  $this->reviewRepository->analyseReview($request->review_text);
+            $customer = auth('customer')->user();
+            $message = 'Your review has been submitted. Thank you for your review.';
+            $review_points = $customer->reviewPoints()->where(['product_id' => $product->id])->orWhere(['is_used' => false])->count();
 
-            $this->reviewRepository->create([
-                'customer_id' => auth('customer')->user()->id,
+            $review_sentiment =  $this->reviewRepository->analyseReview($request->review_text);
+
+            $review = $this->reviewRepository->create([
+                'customer_id' => $customer->id,
                 'product_id' => $product->id,
                 'name' => $request->name,
                 'email' => $request->email,
@@ -32,12 +37,24 @@ class ReviewController extends Controller
                 'review_sentiment' => $review_sentiment
             ]);
 
-            return redirect()->back()->with('success', 'Your review has been submitted. Thank you for your review.');
+            if ($review_points <= 0) {
+                $customer->reviewPoints()->create([
+                    'customer_id' => $customer->id,
+                    'product_id' => $product->id,
+                    'review_id' => $review->id,
+                    'value' => 5,
+                    'is_used' => false,
+                    'notes' => ''
+                ]);
 
+                $message = "Congratulations! You've earned a 5% discount on your next order by submitting this review.";
+            }
+
+            return redirect()->back()->with('success', $message);
         } catch (\Throwable $th) {
+            dd($th);
             logger()->log('info', $th->getMessage());
-            return redirect()->back()->with('success', 'Your review submission encountered an error. Please try again later.');
+            return redirect()->back()->with('success', $message);
         }
-
     }
 }

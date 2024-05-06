@@ -130,7 +130,9 @@
                             <div class="row clearfix">
                                 <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <div class="check-box">
-                                        <input type="checkbox" name="ship_to_different_address" id="ship_to_different_address" {{old('ship_to_different_address') ? 'checked' : null}}> &ensp;
+                                        <input type="checkbox" name="ship_to_different_address"
+                                            id="ship_to_different_address"
+                                            {{ old('ship_to_different_address') ? 'checked' : null }}> &ensp;
                                         <label for="ship_to_different_address">Ship to a different address</label>
                                     </div>
                                 </div>
@@ -153,16 +155,16 @@
                                 <!--Form Group-->
                                 <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                     <div class="field-label">Email Address</div>
-                                    <input type="text" name="different[email]"
-                                        value="{{ old('different.email') }}" placeholder="">
+                                    <input type="text" name="different[email]" value="{{ old('different.email') }}"
+                                        placeholder="">
                                     <span class="text-danger">{{ $errors->first('different.email') }}</span>
                                 </div>
 
                                 <!--Form Group-->
                                 <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                     <div class="field-label">Phone</div>
-                                    <input type="text" name="different[phone]"
-                                        value="{{ old('different.phone') }}" placeholder="">
+                                    <input type="text" name="different[phone]" value="{{ old('different.phone') }}"
+                                        placeholder="">
                                     <span class="text-danger">{{ $errors->first('different.phone') }}</span>
                                 </div>
 
@@ -215,9 +217,9 @@
                             <li class="clearfix"><strong>{{ strtoupper($product->name) }} {{ $product->quantity }}
                                 </strong><span>{{ number_format($product->price * $product->quantity, 2) }}</span></li>
                         @endforeach
-                        <li class="clearfix">Sub Total<span>LKR {{ number_format($product->price, 2) }}</span></li>
+                        <li class="clearfix">Sub Total<span>LKR {{ number_format(getCart()->getSubTotalWithoutConditions(), 2) }}</span></li>
                         <li class="clearfix">Shipping<span class="free">Free Shipping</span></li>
-                        <li class="clearfix">TOTAL<span>$35.00</span></li>
+                        <li class="clearfix">TOTAL<span>LKR {{ number_format(getCart()->getTotal(), 2) }}</span></li>
                     </ul>
                 </div>
                 <!--End Order Box-->
