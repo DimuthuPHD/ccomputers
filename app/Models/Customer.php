@@ -56,8 +56,13 @@ class Customer extends Authenticatable
     ];
 
 
-    public function orders(){
+    public function orders()
+    {
         return $this->hasMany(Order::class, 'user_id');
     }
-}
 
+    public function reviewPoints()
+    {
+        return $this->hasMany(ReviewPoint::class);
+    }
+}

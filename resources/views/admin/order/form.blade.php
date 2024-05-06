@@ -9,6 +9,7 @@
             <p><strong>Status:</strong> {{ $model?->status }}</p>
             <p><strong>Payment Status:</strong> {{ $model?->payment_status }}</p>
             <p><strong>Subtotal:</strong> LKR {{ number_format($model?->sub_total, 2) }}</p>
+            <p><strong>Discounted price:</strong> LKR {{ number_format($model?->discount_price, 2) }}</p>
 
             <h2>Order Items</h2>
             <div class="table-responsive">
@@ -22,12 +23,12 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($model->items as $item)
+                        @foreach ($model->items as $item)
                             <tr>
                                 <td>{{ $item->product->name }}</td>
-                                <td>LKR {{ number_format( $item?->product_price , 2) }}</td>
+                                <td>LKR {{ number_format($item?->product_price, 2) }}</td>
                                 <td>{{ $item->quantity }}</td>
-                                <td>LKR {{ number_format($item?->product_price *  $item->quantity , 2) }}</td>
+                                <td>LKR {{ number_format($item?->product_price * $item->quantity, 2) }}</td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -47,7 +48,8 @@
                     <label for="status">Status:</label>
                     <select class="form-control" name="status" id="status">
                         @foreach ($orderStatuses as $id => $status)
-                            <option value="{{$id}}" {{ $model?->status === $id ? 'selected' : '' }}>{{$status}}</option>
+                            <option value="{{ $id }}" {{ $model?->status === $id ? 'selected' : '' }}>
+                                {{ $status }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -57,7 +59,8 @@
                     <select class="form-control" name="payment_status" id="payment_status">
 
                         @foreach ($paymentStatuses as $id => $status)
-                            <option value="{{$id}}" {{ $model?->payment_status === $id ? 'selected' : '' }}>{{$status}}</option>
+                            <option value="{{ $id }}"
+                                {{ $model?->payment_status === $id ? 'selected' : '' }}>{{ $status }}</option>
                         @endforeach
 
                     </select>

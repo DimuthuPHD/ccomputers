@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\FrontEnd\OrderRequest;
 use App\Mail\OrderConfirmation;
 use App\Models\Order;
+use App\Models\ReviewPoint;
 use App\Repositories\Category\CategoryRepository;
 use App\Repositories\Category\OrderRepository;
 use App\Repositories\Product\ProductRepository;
@@ -29,7 +30,7 @@ class CheckoutController extends Controller
 
     public function index()
     {
-        if(getCart()->getTotalQuantity() <= 0){
+        if (getCart()->getTotalQuantity() <= 0) {
             return redirect()->route('fr.cart.index')->with(['success' => 'Your cart is empty.']);
         }
         return view('frontend.checkout.index');
@@ -41,13 +42,15 @@ class CheckoutController extends Controller
         $logged_in_user = auth('customer')->user();
         $order_items = [];
         $stock_data = [];
-        $cart_data = getCart()->getContent();
+        $cart = getCart();
+        $cart_data = $cart->getContent();
 
         $order_data = [
             'user_type' => $logged_in_user ? 'registered' : 'guest',
             'user_id' => $logged_in_user ? $logged_in_user->id : null,
             'payment_method' => 'CASH_ON_DELIVERY',
-            'sub_total' => getCart()->getSubTotal(),
+            'sub_total' => getCart()->getSubTotalWithoutConditions(),
+            'discount_price' => getCart()->getSubTotal(),
             'payment_status' => 1,
             'status' => 1
         ];
@@ -101,25 +104,33 @@ class CheckoutController extends Controller
 
             Mail::to($primary_addr['email'])->send(new OrderConfirmation($order, $cart_data));
 
+
+            if ($reviewPoints = $cart->getCondition('Review Based Points')) {
+                $review_point_id = $reviewPoints->getAttributes()['review_point'];
+                ReviewPoint::where('id', $review_point_id)->update(['is_used' => 1]);
+            }
+
+            getCart()->clearCartConditions();
             getCart()->clear();
+
+
 
             return redirect()->route('fr.home')->with('success', 'Order placed successfully');
         }
 
         abort(404);
-
     }
 
-    private function updateStocks($stock_data = []){
+    private function updateStocks($stock_data = [])
+    {
 
         foreach ($stock_data as $id => $stock) {
             $product = $this->productRepository->getById($id);
 
-            if($product){
-                    $current_stock = $product->stock >= $stock ? $product->stock - $stock : 0;
-                    $product->update(['stock' => $current_stock]);
+            if ($product) {
+                $current_stock = $product->stock >= $stock ? $product->stock - $stock : 0;
+                $product->update(['stock' => $current_stock]);
             }
         }
-
     }
 }

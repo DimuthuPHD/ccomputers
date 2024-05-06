@@ -40,7 +40,7 @@
                     </div>
                 </div>
                 <div class="shop_cart_page_wrapper">
-                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+                    <div class="col-lg-8 col-md-9 col-sm-12 col-xs-12">
                         <div class="table-responsive cart-calculations">
 
                             @if (getCart()->getContent()->count() > 0)
@@ -69,12 +69,12 @@
                                             @endphp
                                             <tr>
                                                 <td>
-                                                    {{$count}}
+                                                    {{ $count }}
                                                 </td>
                                                 <td>
                                                     <div class="table_cart_img">
                                                         <figure>
-                                                            <img src="{{$media}}" alt="" />
+                                                            <img src="{{ $media }}" alt="" />
                                                         </figure>
                                                     </div>
                                                     <div class="table_cart_cntnt">
@@ -91,8 +91,8 @@
                                                 </td>
                                             </tr>
                                             @php
-                                            $count ++;
-                                        @endphp
+                                                $count++;
+                                            @endphp
                                         @endforeach
                                     </tbody>
                                 </table>
@@ -104,7 +104,7 @@
 
                     </div>
 
-                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                    <div class="col-lg-4 col-md-3 col-sm-12 col-xs-12">
 
                         <div class="shipping_Wrapper">
                             <div
@@ -117,9 +117,10 @@
                                 <table class="table">
                                     <tbody>
                                         <tr>
-                                            <th>Sub Total : </th>
+                                            <th>Total : </th>
                                             <td><span class="price">LKR
-                                                    {{ number_format(getCart()->getSubTotal(), 2) }}</span></td>
+                                                    {{ number_format(getCart()->getSubTotalWithoutConditions(), 2) }}</span>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <th>Tax 0% :</th>
@@ -127,7 +128,12 @@
                                         </tr>
                                         <tr>
                                             <th> Discount:</th>
-                                            <td><span class="price">-LKR 0.00</span></td>
+
+                                            @if ($condition = getCart()->getCondition('Review Based Points'))
+                                                <td><span class="price">-LKR {{ number_format($condition->getValue(), 2) }}</span></td>
+                                            @else
+                                                <td><span class="price">-LKR 0.00</span></td>
+                                            @endif
                                         </tr>
                                         <tr>
                                             <th class="cart_btn_cntnt"> Sub Total :</th>
@@ -140,7 +146,7 @@
                                 @if (getCart()->getTotalQuantity() > 0)
                                     <div class="shop_btn_wrapper shop_btn_wrapper_shipping">
                                         <ul>
-                                            <li><a href="{{route('fr.checkout.index')}}">checkout</a>
+                                            <li><a href="{{ route('fr.checkout.index') }}">checkout</a>
                                             </li>
                                         </ul>
                                     </div>
