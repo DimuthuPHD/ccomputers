@@ -265,27 +265,13 @@
                                             <div class="btc_shop_single_prod_right_section">
                                                 <h1>Add a Review</h1>
                                                 <p>Your email address will not be published. Required fields are marked *</p>
-                                                {{-- <div class="wrap">
+                                                <div class="wrap">
                                                     Your Rating:
                                                     <div class="inputs">
 
-                                                        <input type="checkbox" name="" id="1">
-                                                        <label for="1">★</label>
-
-                                                        <input type="checkbox" name="" id="2">
-                                                        <label for="2">★</label>
-
-                                                        <input type="checkbox" name="" id="3">
-                                                        <label for="3">★</label>
-
-                                                        <input type="checkbox" name="" id="4">
-                                                        <label for="4">★</label>
-
-                                                        <input type="checkbox" name="" id="5">
-                                                        <label for="5">★</label>
-
                                                     </div>
-                                                </div> --}}
+                                                    <span class="text-danger">{{$errors->first('rating')}}</span>
+                                                </div>
                                             </div>
                                             <div class="shop_pdt_form">
                                                 <div class="row">
@@ -313,7 +299,7 @@
                                         </div>
                                     </form>
                                 @else
-                                    Please <a href="{{ route('fr.customer.login', ['redirect_back' => request()->path()]) }}">Login</a> to make a Review
+                                    Please <a href="{{ route('fr.customer.login', ['redirect_back' => request()->path()]) }}" style="color: rgb(45, 45, 206)">Login</a> to make a Review
                                 @endif
                             </div>
 

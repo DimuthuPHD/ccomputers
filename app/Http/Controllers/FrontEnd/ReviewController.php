@@ -19,6 +19,7 @@ class ReviewController extends Controller
 
     public function submit(Product $product, ReviewRequest $request)
     {
+
         try {
 
             $customer = auth('customer')->user();
@@ -32,7 +33,7 @@ class ReviewController extends Controller
                 'product_id' => $product->id,
                 'name' => $request->name,
                 'email' => $request->email,
-                'rating' => '5',
+                'rating' => $request->rating,
                 'review_text' => $request->review_text,
                 'review_sentiment' => $review_sentiment
             ]);
