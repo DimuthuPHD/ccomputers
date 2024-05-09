@@ -10,7 +10,7 @@ class StarWidget {
       ${arr
         .map(i => {
           return `
-          <input type="checkbox" name="" id="${i}">
+          <input type="checkbox" name="rating" value="${i}" id="${i}">
           <label for="${i}">★</label>
         `;
         })

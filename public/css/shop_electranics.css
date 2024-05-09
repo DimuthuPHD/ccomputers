@@ -3927,3 +3927,9 @@ select:focus{
     margin-right: 5px;
     color: #333;
 }
+.sentiment_count_bar {
+	display: inline-block;
+}
+.sentiment_count_bar > .sentiment_block > img {
+	width: 18px;
+}

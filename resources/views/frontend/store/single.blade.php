@@ -6,6 +6,9 @@
         <link href="{{ asset('css/slick.css') }}" rel="stylesheet">
         <link href="{{ asset('css/slick-theme.css') }}" rel="stylesheet">
     @endpush
+@php
+    $reviews = $product->reviews()->latest()->paginate(5);
+@endphp
     <!-- page_header start -->
     <div class="page_header">
         <div class="container">
@@ -118,13 +121,7 @@
                                     <h1>{{ $product->name }}</h1>
                                     <div class="btc_shop_product_price_wrapper">
                                         <div class="btc_shop_product_price">LKR {{ number_format($product->price, 2) }}</div>
-                                        <div class="btc_shop_product_rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star-half-empty"></i>
-                                            <i class="fa fa-star-o"></i>
-                                        </div>
+                                        {!!$product->renderStarRating()!!}
                                         <div class="btc_shop_product_availability"><small>{{$product->stock > 0 ? 'In Stock' : 'Out of Stock'}}</small></div>
                                     </div>
                                     <div class="btc_shop_sin_pro_icon_wrapper">
@@ -186,7 +183,33 @@
                                             </li>
                                             <li class="active">
                                                 <a href="#product_tab_3" data-toggle="tab">
-                                                    Reviews ({{$product->reviews()->count()}})
+                                                    Reviews (
+
+                                                    @php
+                                                    $positive_count = $product->reviews()->where(['review_sentiment' => 'positive'])->count();
+                                                    $negative_count =   $product->reviews()->where(['review_sentiment' => 'negative'])->count();
+                                                    $neutral_count =  $product->reviews()->where(['review_sentiment' => 'neutral'])->count();
+                                                    @endphp
+
+                                                    <div class="sentiment_count_bar">
+                                                        <span class="sentiment_block">
+                                                            <img src="{{ asset("images/shop/electronics/moods/positive.png") }}" class="" alt="">
+                                                            {{$positive_count}}
+                                                        </span>
+                                                        +
+                                                        <span class="sentiment_block">
+                                                            <img src="{{ asset("images/shop/electronics/moods/negative.png") }}" class="" alt="">
+                                                            {{$negative_count}}
+                                                        </span>
+                                                        +
+                                                        <span class="sentiment_block">
+                                                            <img src="{{ asset("images/shop/electronics/moods/neutral.png") }}" class="" alt="">
+                                                            {{$neutral_count}}
+                                                        </span>
+                                                    </div>
+                                                    =
+                                                    {{$product->reviews()->count()}}
+                                                    )
                                                 </a>
                                             </li>
                                         </ul>
@@ -239,9 +262,7 @@
                                             </div>
                                             <div class="tab-pane fade in active" id="product_tab_3">
                                                 <div class="comment_box_blog">
-                                                    @php
-                                                        $reviews = $product->reviews()->latest()->paginate(5);
-                                                    @endphp
+
 
                                                     @foreach ($reviews as $review)
                                                         <x-front-end.review-block :review="$review"></x-front-end.review-block>
@@ -265,27 +286,13 @@
                                             <div class="btc_shop_single_prod_right_section">
                                                 <h1>Add a Review</h1>
                                                 <p>Your email address will not be published. Required fields are marked *</p>
-                                                {{-- <div class="wrap">
+                                                <div class="wrap">
                                                     Your Rating:
                                                     <div class="inputs">
 
-                                                        <input type="checkbox" name="" id="1">
-                                                        <label for="1">★</label>
-
-                                                        <input type="checkbox" name="" id="2">
-                                                        <label for="2">★</label>
-
-                                                        <input type="checkbox" name="" id="3">
-                                                        <label for="3">★</label>
-
-                                                        <input type="checkbox" name="" id="4">
-                                                        <label for="4">★</label>
-
-                                                        <input type="checkbox" name="" id="5">
-                                                        <label for="5">★</label>
-
                                                     </div>
-                                                </div> --}}
+                                                    <span class="text-danger">{{$errors->first('rating')}}</span>
+                                                </div>
                                             </div>
                                             <div class="shop_pdt_form">
                                                 <div class="row">
@@ -313,7 +320,7 @@
                                         </div>
                                     </form>
                                 @else
-                                    Please <a href="{{ route('fr.customer.login', ['redirect_back' => request()->path()]) }}">Login</a> to make a Review
+                                    Please <a href="{{ route('fr.customer.login', ['redirect_back' => request()->path()]) }}" style="color: rgb(45, 45, 206)">Login</a> to make a Review
                                 @endif
                             </div>
 
