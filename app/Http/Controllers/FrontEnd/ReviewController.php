@@ -20,7 +20,7 @@ class ReviewController extends Controller
     public function submit(Product $product, ReviewRequest $request)
     {
         try {
-
+            dd($request->all());
             $customer = auth('customer')->user();
             $message = 'Your review has been submitted. Thank you for your review.';
             $review_points = $customer->reviewPoints()->where(['product_id' => $product->id])->orWhere(['is_used' => false])->count();

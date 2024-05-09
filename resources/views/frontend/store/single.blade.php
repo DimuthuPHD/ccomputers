@@ -117,7 +117,8 @@
                                 <div class="btc_shop_single_prod_right_section">
                                     <h1>{{ $product->name }}</h1>
                                     <div class="btc_shop_product_price_wrapper">
-                                        <div class="btc_shop_product_price">LKR {{ number_format($product->price, 2) }}</div>
+                                        <div class="btc_shop_product_price">LKR {{ number_format($product->price, 2) }}
+                                        </div>
                                         <div class="btc_shop_product_rating">
                                             <i class="fa fa-star"></i>
                                             <i class="fa fa-star"></i>
@@ -125,7 +126,9 @@
                                             <i class="fa fa-star-half-empty"></i>
                                             <i class="fa fa-star-o"></i>
                                         </div>
-                                        <div class="btc_shop_product_availability"><small>{{$product->stock > 0 ? 'In Stock' : 'Out of Stock'}}</small></div>
+                                        <div class="btc_shop_product_availability">
+                                            <small>{{ $product->stock > 0 ? 'In Stock' : 'Out of Stock' }}</small>
+                                        </div>
                                     </div>
                                     <div class="btc_shop_sin_pro_icon_wrapper">
                                         <h5>These edible ruby red roots are smooth and bulbous and have the highest sugar
@@ -137,28 +140,30 @@
                                     <div class="cc_ps_cart_btn_wrapper">
                                         <div class="cc_ps_cart_btn">
                                             <span>Quantity</span>
-                                            <form action="{{route('fr.cart.add')}}" method="post">
+                                            <form action="{{ route('fr.cart.add') }}" method="post">
                                                 @csrf
                                                 <ul>
                                                     <li>
                                                         <div class="cc_ps_quantily_info">
                                                             <div class="select_number">
-                                                                <button onclick="changeQty(1); return false;" title="increase"
-                                                                    class="increase">
+                                                                <button onclick="changeQty(1); return false;"
+                                                                    title="increase" class="increase">
                                                                     <i class="fa fa-angle-up"></i>
                                                                 </button>
                                                                 <input type="text" name="quantity" value="1"
                                                                     size="2" id="input-quantity" class="form-control">
-                                                                <button onclick="changeQty(0); return  false;" title="decrease"
-                                                                    class="decrease">
+                                                                <button onclick="changeQty(0); return  false;"
+                                                                    title="decrease" class="decrease">
                                                                     <i class="fa fa-angle-down"></i>
                                                                 </button>
                                                             </div>
-                                                            <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                                            <input type="hidden" name="product_id"
+                                                                value="{{ $product->id }}">
                                                         </div>
                                                     </li>
                                                     <li>
-                                                        <button type="submit" class="btn btn-primary add-to-cart-button">  <i class="fa fa-shopping-cart"></i>
+                                                        <button type="submit" class="btn btn-primary add-to-cart-button">
+                                                            <i class="fa fa-shopping-cart"></i>
                                                             Add to Cart</button>
                                                     </li>
                                                 </ul>
@@ -186,7 +191,7 @@
                                             </li>
                                             <li class="active">
                                                 <a href="#product_tab_3" data-toggle="tab">
-                                                    Reviews ({{$product->reviews()->count()}})
+                                                    Reviews ({{ $product->reviews()->count() }})
                                                 </a>
                                             </li>
                                         </ul>
@@ -244,10 +249,11 @@
                                                     @endphp
 
                                                     @foreach ($reviews as $review)
-                                                        <x-front-end.review-block :review="$review"></x-front-end.review-block>
+                                                        <x-front-end.review-block
+                                                            :review="$review"></x-front-end.review-block>
                                                     @endforeach
 
-                                                    {{$reviews->links('pagination::simple-bootstrap-5')}}
+                                                    {{ $reviews->links('pagination::simple-bootstrap-5') }}
 
 
                                                 </div>
@@ -259,48 +265,53 @@
                             </div>
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="review-form">
                                 @if (auth('customer')->user())
-                                    <form action="{{route('fr.customer.review.add', $product->slug)}}" method="post">
+                                    <form action="{{ route('fr.customer.review.add', $product->slug) }}" method="post">
                                         @csrf
                                         <div class="product_contect_wrapper">
                                             <div class="btc_shop_single_prod_right_section">
                                                 <h1>Add a Review</h1>
-                                                <p>Your email address will not be published. Required fields are marked *</p>
-                                                {{-- <div class="wrap">
+                                                <p>Your email address will not be published. Required fields are marked *
+                                                </p>
+                                                <div class="wrap">
                                                     Your Rating:
                                                     <div class="inputs">
 
-                                                        <input type="checkbox" name="" id="1">
+                                                        <input type="checkbox" name="ratings" id="1" value="1">
                                                         <label for="1">★</label>
 
-                                                        <input type="checkbox" name="" id="2">
+                                                        <input type="checkbox" name="ratings" id="2"  value="2">
                                                         <label for="2">★</label>
 
-                                                        <input type="checkbox" name="" id="3">
+                                                        <input type="checkbox" name="ratings" id="3"  value="3">
                                                         <label for="3">★</label>
 
-                                                        <input type="checkbox" name="" id="4">
+                                                        <input type="checkbox" name="ratings" id="4"  value="4">
                                                         <label for="4">★</label>
 
-                                                        <input type="checkbox" name="" id="5">
+                                                        <input type="checkbox" name="ratings" id="5"  value="5">
                                                         <label for="5">★</label>
 
                                                     </div>
-                                                </div> --}}
+                                                    <div class="msg"></div>
+                                                </div>
                                             </div>
                                             <div class="shop_pdt_form">
                                                 <div class="row">
                                                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                                        <input type="text" placeholder="Your Name*" name="name" value="{{old('name')}}"><i class="fa fa-user"></i>
-                                                        <span class="text-danger">{{$errors->first('name')}}</span>
+                                                        <input type="text" placeholder="Your Name*" name="name"
+                                                            value="{{ old('name') }}"><i class="fa fa-user"></i>
+                                                        <span class="text-danger">{{ $errors->first('name') }}</span>
                                                     </div>
                                                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                                        <input type="email" placeholder="Your Email*" name="email" value="{{old('email')}}"><i class="fa fa-envelope"></i>
-                                                        <span class="text-danger">{{$errors->first('email')}}</span>
+                                                        <input type="email" placeholder="Your Email*" name="email"
+                                                            value="{{ old('email') }}"><i class="fa fa-envelope"></i>
+                                                        <span class="text-danger">{{ $errors->first('email') }}</span>
                                                     </div>
                                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                         <div class="shop_pdt_textarea">
-                                                            <textarea rows="4" placeholder=" Your Review*" name="review_text">{{old('review_text')}}</textarea><i class="fa fa-question-circle"></i>
-                                                            <span class="text-danger">{{$errors->first('review_text')}}</span>
+                                                            <textarea rows="4" placeholder=" Your Review*" name="review_text">{{ old('review_text') }}</textarea><i class="fa fa-question-circle"></i>
+                                                            <span
+                                                                class="text-danger">{{ $errors->first('review_text') }}</span>
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -313,7 +324,9 @@
                                         </div>
                                     </form>
                                 @else
-                                    Please <a href="{{ route('fr.customer.login', ['redirect_back' => request()->path()]) }}">Login</a> to make a Review
+                                    Please <a
+                                        href="{{ route('fr.customer.login', ['redirect_back' => request()->path()]) }}">Login</a>
+                                    to make a Review
                                 @endif
                             </div>
 
@@ -324,10 +337,8 @@
             </div>
         </div>
     </div>
-
 @endsection
 @push('scripts')
-
     <script src="{{ asset('js/slick_electranic.js') }}"></script>
     <script src="{{ asset('js/slick.min.js') }}"></script>
     <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
