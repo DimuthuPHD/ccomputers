@@ -8,9 +8,9 @@ class StarWidget {
         const arr = [1, 2, 3, 4, 5];
         const template = `
       ${arr
-          .map((i) => {
-              return `
-          <input type="checkbox" name="" id="${i}">
+        .map(i => {
+          return `
+          <input type="checkbox" name="rating" value="${i}" id="${i}">
           <label for="${i}">★</label>
         `;
           })

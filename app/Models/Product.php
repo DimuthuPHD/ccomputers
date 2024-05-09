@@ -59,4 +59,38 @@ class Product extends Model implements HasMedia
         return $this->hasMany(Review::class);
     }
 
+    public function averageRating()
+    {
+        return $this->reviews()->avg('rating');
+    }
+
+    public function renderStarRating()
+    {
+        $averageRating = $this->averageRating();
+
+        // Calculate the number of full stars
+        $fullStars = floor($averageRating);
+
+        // Calculate the number of half stars
+        $halfStars = ceil($averageRating - $fullStars);
+
+        // Calculate the number of empty stars
+        $emptyStars = 5 - ($fullStars + $halfStars);
+
+        // Generate HTML for star ratings
+        $html = '<div class="btc_shop_product_rating">';
+        for ($i = 1; $i <= $fullStars; $i++) {
+            $html .= '<i class="fa fa-star"></i>';
+        }
+        for ($i = 1; $i <= $halfStars; $i++) {
+            $html .= '<i class="fa fa-star-half-empty"></i>';
+        }
+        for ($i = 1; $i <= $emptyStars; $i++) {
+            $html .= '<i class="fa fa-star-o"></i>';
+        }
+        $html .= '</div>';
+
+        return $html;
+    }
+
 }

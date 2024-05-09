@@ -6,6 +6,9 @@
         <link href="{{ asset('css/slick.css') }}" rel="stylesheet">
         <link href="{{ asset('css/slick-theme.css') }}" rel="stylesheet">
     @endpush
+@php
+    $reviews = $product->reviews()->latest()->paginate(5);
+@endphp
     <!-- page_header start -->
     <div class="page_header">
         <div class="container">
@@ -117,18 +120,9 @@
                                 <div class="btc_shop_single_prod_right_section">
                                     <h1>{{ $product->name }}</h1>
                                     <div class="btc_shop_product_price_wrapper">
-                                        <div class="btc_shop_product_price">LKR {{ number_format($product->price, 2) }}
-                                        </div>
-                                        <div class="btc_shop_product_rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star-half-empty"></i>
-                                            <i class="fa fa-star-o"></i>
-                                        </div>
-                                        <div class="btc_shop_product_availability">
-                                            <small>{{ $product->stock > 0 ? 'In Stock' : 'Out of Stock' }}</small>
-                                        </div>
+                                        <div class="btc_shop_product_price">LKR {{ number_format($product->price, 2) }}</div>
+                                        {!!$product->renderStarRating()!!}
+                                        <div class="btc_shop_product_availability"><small>{{$product->stock > 0 ? 'In Stock' : 'Out of Stock'}}</small></div>
                                     </div>
                                     <div class="btc_shop_sin_pro_icon_wrapper">
                                         <h5>These edible ruby red roots are smooth and bulbous and have the highest sugar
@@ -191,7 +185,30 @@
                                             </li>
                                             <li class="active">
                                                 <a href="#product_tab_3" data-toggle="tab">
-                                                    Reviews ({{ $product->reviews()->count() }})
+                                                    Reviews (
+
+                                                    @php
+                                                    $positive_count = $product->reviews()->where(['review_sentiment' => 'positive'])->count();
+                                                    $negative_count =   $product->reviews()->where(['review_sentiment' => 'negative'])->count();
+                                                    $neutral_count =  $product->reviews()->where(['review_sentiment' => 'neutral'])->count();
+                                                    @endphp
+
+                                                    <div class="sentiment_count_bar">
+                                                        <span class="sentiment_block">
+                                                            <img src="{{ asset("images/shop/electronics/moods/positive.png") }}" class="" alt="">
+                                                            {{$positive_count}}
+                                                            <img src="{{ asset("images/shop/electronics/moods/negative.png") }}" class="" alt="">
+                                                            {{$negative_count}}
+                                                        </span>
+                                                        +
+                                                        <span class="sentiment_block">
+                                                            <img src="{{ asset("images/shop/electronics/moods/neutral.png") }}" class="" alt="">
+                                                            {{$neutral_count}}
+                                                        </span>
+                                                    </div>
+                                                    =
+                                                    {{$product->reviews()->count()}}
+                                                    )
                                                 </a>
                                             </li>
                                         </ul>
@@ -206,7 +223,6 @@
                                                         watch videos on its HD+ Full Screen Display.</p>
                                                     <ul class="tab_list_item">
                                                         <li>3 GB RAM | 32 GB ROM | Expandable Upto 256 GB</li>
-                                                        <li>15.21 cm (5.99 inch) HD+ Display</li>
                                                         <li>12MP + 5MP | 16MP Front Camera</li>
                                                     </ul>
                                                 </div>
@@ -244,9 +260,7 @@
                                             </div>
                                             <div class="tab-pane fade in active" id="product_tab_3">
                                                 <div class="comment_box_blog">
-                                                    @php
-                                                        $reviews = $product->reviews()->latest()->paginate(5);
-                                                    @endphp
+
 
                                                     @foreach ($reviews as $review)
                                                         <x-front-end.review-block
@@ -270,29 +284,13 @@
                                         <div class="product_contect_wrapper">
                                             <div class="btc_shop_single_prod_right_section">
                                                 <h1>Add a Review</h1>
-                                                <p>Your email address will not be published. Required fields are marked *
-                                                </p>
+                                                <p>Your email address will not be published. Required fields are marked *</p>
                                                 <div class="wrap">
                                                     Your Rating:
                                                     <div class="inputs">
 
-                                                        <input type="checkbox" name="ratings" id="1" value="1">
-                                                        <label for="1">★</label>
-
-                                                        <input type="checkbox" name="ratings" id="2"  value="2">
-                                                        <label for="2">★</label>
-
-                                                        <input type="checkbox" name="ratings" id="3"  value="3">
-                                                        <label for="3">★</label>
-
-                                                        <input type="checkbox" name="ratings" id="4"  value="4">
-                                                        <label for="4">★</label>
-
-                                                        <input type="checkbox" name="ratings" id="5"  value="5">
-                                                        <label for="5">★</label>
-
                                                     </div>
-                                                    <div class="msg"></div>
+                                                    <span class="text-danger">{{$errors->first('rating')}}</span>
                                                 </div>
                                             </div>
                                             <div class="shop_pdt_form">
@@ -324,9 +322,7 @@
                                         </div>
                                     </form>
                                 @else
-                                    Please <a
-                                        href="{{ route('fr.customer.login', ['redirect_back' => request()->path()]) }}">Login</a>
-                                    to make a Review
+                                    Please <a href="{{ route('fr.customer.login', ['redirect_back' => request()->path()]) }}" style="color: rgb(45, 45, 206)">Login</a> to make a Review
                                 @endif
                             </div>
 
